@@ -12,6 +12,17 @@ All notable changes to this project will be documented in this file. The format 
   rules as the inline variant (focus + `FocusHighlightMode.traditional`).
   Requires an enclosing `Overlay` (provided by `MaterialApp` /
   `WidgetsApp`). See ADR-0006.
+- `OctoCommandPalette` + `OctoCommandPaletteController` — modal command
+  palette rendered through `OverlayPortal` on top of the host app. The
+  modal contains an autofocused search field that filters items by
+  case-insensitive substring match on `label + description`; `Enter`
+  activates the first enabled match, `Escape` and outside-scrim taps
+  dismiss. Optional `openShortcut: ShortcutActivator?` (e.g.
+  `SingleActivator(LogicalKeyboardKey.keyK, meta: true)` for `Cmd+K`)
+  installs a global key handler that opens the palette. The modal body
+  wraps in a transparent `Material` so the embedded `OctoTextField`
+  (which delegates to Material's `TextField`) finds an ancestor outside
+  the host route.
 - **Arrow-key navigation in `OctoActionList`** — each row is a focusable
   node; the list wraps in `Shortcuts({Up: PreviousFocusIntent, Down:
   NextFocusIntent})` + `Actions(NextFocusAction, PreviousFocusAction)` +
