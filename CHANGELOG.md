@@ -6,6 +6,18 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- **`OctoToast`** + `OctoToastVariant` + `OctoToastAction` +
+  `OctoToastController` — transient floating status pill (Primer
+  "Toast"). Static `OctoToast.show(context, ...)` mounts an
+  `OverlayEntry` at the bottom-center, slides + fades in, schedules
+  auto-dismiss after `duration` (defaults to 4s; pass `Duration.zero`
+  to make it sticky), and returns a controller whose `.dismiss()`
+  removes the toast early. Four variants drive the leading-icon tint;
+  optional action button + dismiss button. `Semantics(liveRegion)`
+  announces the message to screen readers. `OctoToast.show` captures
+  the ambient `OctoTheme` + `Directionality` and re-injects them into
+  the overlay subtree so the pill keeps theme access even though the
+  root `Overlay` sits above the inherited theme.
 - **`OctoCollapsible`** — disclosure section (Primer "Accordion item").
   Supports both *uncontrolled* (`initiallyExpanded`) and *controlled*
   (`expanded` + `onExpansionChanged`) modes. Header is a focusable
@@ -39,7 +51,7 @@ All notable changes to this project will be documented in this file. The format 
   letting callers (e.g. golden scenarios) open / close the popover
   programmatically without exposing internal state.
 - Golden coverage: `octo_misc/dividers`, `octo_misc/progress_bars`,
-  `octo_misc/collapsibles` (light + dark) and an
+  `octo_misc/collapsibles`, `octo_misc/toasts` (light + dark) and an
   `octo_pickers/dropdown_open` scenario that snapshots the menu in its
   open state.
 - Demo: a new "Dividers" section in the kitchen-sink showing subtle /

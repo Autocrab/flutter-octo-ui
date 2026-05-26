@@ -96,6 +96,41 @@ void main() {
         ),
       ),
       MatrixScenario(
+        'toasts',
+        builder: () => const _Sampler(
+          child: SizedBox(
+            width: 360,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                OctoToast(
+                  message: 'Repository created',
+                  variant: OctoToastVariant.success,
+                ),
+                SizedBox(height: 12),
+                OctoToast(
+                  message: 'Heads up — 3 packages need an upgrade',
+                  variant: OctoToastVariant.attention,
+                ),
+                SizedBox(height: 12),
+                OctoToast(
+                  message: 'Note archived',
+                  action: OctoToastAction(label: 'Undo', onPressed: _noop),
+                ),
+                SizedBox(height: 12),
+                OctoToast(
+                  message: 'Failed to publish workflow',
+                  variant: OctoToastVariant.danger,
+                  dismissible: true,
+                  onDismiss: _noop,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      MatrixScenario(
         'collapsibles',
         builder: () => const _Sampler(
           child: SizedBox(

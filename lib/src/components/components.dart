@@ -24,6 +24,7 @@ export 'segmented_control/octo_segmented_control_item.dart';
 export 'skeleton/octo_skeleton.dart';
 export 'switch/octo_switch.dart';
 export 'text_field/octo_text_field.dart';
+export 'toast/octo_toast.dart';
 export 'tooltip/octo_tooltip.dart';
 export 'underline_nav/octo_underline_nav.dart';
 export 'underline_nav/octo_underline_nav_item.dart';

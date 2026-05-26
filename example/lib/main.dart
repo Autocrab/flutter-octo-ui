@@ -541,6 +541,54 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                   ),
                 ),
                 _Section(
+                  title: 'Toasts — transient overlay feedback',
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      OctoButton.label(
+                        'Show success',
+                        onPressed: () => OctoToast.show(
+                          context,
+                          message: 'Changes saved',
+                          variant: OctoToastVariant.success,
+                        ),
+                      ),
+                      OctoButton.label(
+                        'Show warning',
+                        variant: OctoButtonVariant.invisible,
+                        onPressed: () => OctoToast.show(
+                          context,
+                          message: 'Heads up — 3 packages need an upgrade',
+                          variant: OctoToastVariant.attention,
+                        ),
+                      ),
+                      OctoButton.label(
+                        'Show with action',
+                        variant: OctoButtonVariant.invisible,
+                        onPressed: () => OctoToast.show(
+                          context,
+                          message: 'Note archived',
+                          action: OctoToastAction(
+                            label: 'Undo',
+                            onPressed: () {},
+                          ),
+                        ),
+                      ),
+                      OctoButton.label(
+                        'Show danger',
+                        variant: OctoButtonVariant.danger,
+                        onPressed: () => OctoToast.show(
+                          context,
+                          message: 'Failed to publish workflow',
+                          variant: OctoToastVariant.danger,
+                          dismissible: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
                   title: 'Progress bars — determinate + indeterminate',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
