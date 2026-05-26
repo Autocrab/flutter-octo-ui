@@ -61,6 +61,11 @@ class OctoDropdown<T> extends StatefulWidget {
   /// measured width.
   final double? minWidth;
 
+  /// Optional external menu controller. When `null`, the dropdown owns
+  /// its own controller; supply one to open / close the menu
+  /// programmatically (tests, "expand on focus" patterns).
+  final OctoMenuController? controller;
+
   /// Creates a dropdown.
   const OctoDropdown({
     super.key,
@@ -71,6 +76,7 @@ class OctoDropdown<T> extends StatefulWidget {
     this.variant = OctoButtonVariant.standard,
     this.size = OctoButtonSize.medium,
     this.minWidth,
+    this.controller,
   });
 
   @override
@@ -78,11 +84,13 @@ class OctoDropdown<T> extends StatefulWidget {
 }
 
 class _OctoDropdownState<T> extends State<OctoDropdown<T>> {
-  final OctoMenuController _menuController = OctoMenuController();
+  OctoMenuController? _ownedController;
+  OctoMenuController get _menuController =>
+      widget.controller ?? (_ownedController ??= OctoMenuController());
 
   @override
   void dispose() {
-    _menuController.dispose();
+    _ownedController?.dispose();
     super.dispose();
   }
 

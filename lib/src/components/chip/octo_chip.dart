@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_octicons/flutter_octicons.dart' show OctIcons;
 
-import 'package:octo_ui/src/components/button/octo_button.dart';
-import 'package:octo_ui/src/components/icon_button/octo_icon_button.dart';
 import 'package:octo_ui/src/foundation/octo_state_layer.dart';
 import 'package:octo_ui/src/foundation/octo_text.dart';
 import 'package:octo_ui/src/theme/octo_theme.dart';
@@ -140,12 +138,11 @@ class _OctoChipState extends State<OctoChip> {
           ),
           if (widget.onDismiss != null) ...[
             SizedBox(width: theme.spacing.gap.xs),
-            OctoIconButton(
-              icon: OctIcons.x_16,
-              onPressed: widget.onDismiss,
-              variant: OctoButtonVariant.invisible,
-              size: OctoButtonSize.small,
-              semanticLabel: widget.dismissSemanticLabel ?? 'Remove ${widget.label}',
+            _ChipDismissButton(
+              onPressed: widget.onDismiss!,
+              color: colors.foreground,
+              semanticLabel:
+                  widget.dismissSemanticLabel ?? 'Remove ${widget.label}',
             ),
           ],
         ],
@@ -186,5 +183,42 @@ class _OctoChipState extends State<OctoChip> {
     );
 
     return pill;
+  }
+}
+
+/// Compact 16×16 X-button used only inside [OctoChip]. We don't reuse
+/// [OctoIconButton] here — that component carries a 28 px minimum height
+/// from [OctoButtonSize.small], which would inflate the chip whenever a
+/// dismiss is attached and create the visual size mismatch between
+/// chips with and without an `X`.
+class _ChipDismissButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Color color;
+  final String semanticLabel;
+
+  const _ChipDismissButton({
+    required this.onPressed,
+    required this.color,
+    required this.semanticLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onPressed,
+          child: SizedBox(
+            width: 16,
+            height: 16,
+            child: Center(child: Icon(OctIcons.x_16, size: 12, color: color)),
+          ),
+        ),
+      ),
+    );
   }
 }

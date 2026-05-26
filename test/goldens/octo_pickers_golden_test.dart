@@ -59,12 +59,55 @@ void main() {
           ),
         ),
       ),
+      MatrixScenario('dropdown_open', builder: () => const _DropdownOpenStage()),
     ],
     axes: MatrixAxes(themes: octoThemes),
     wrapApp: wrapInOctoTheme,
     reportFormats: octoReportFormats,
     tolerance: octoGoldenTolerance,
   );
+}
+
+class _DropdownOpenStage extends StatefulWidget {
+  const _DropdownOpenStage();
+
+  @override
+  State<_DropdownOpenStage> createState() => _DropdownOpenStageState();
+}
+
+class _DropdownOpenStageState extends State<_DropdownOpenStage> {
+  final OctoMenuController _menu = OctoMenuController();
+  String? _value = 'medium';
+
+  @override
+  void initState() {
+    super.initState();
+    // Open the menu after the first frame so the snapshot captures the
+    // popover, not just the trigger button.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _menu.open());
+  }
+
+  @override
+  void dispose() {
+    _menu.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _Sampler(
+      child: OctoDropdown<String>(
+        controller: _menu,
+        value: _value,
+        onChanged: (v) => setState(() => _value = v),
+        items: const [
+          OctoDropdownItem(value: 'low', label: 'Low'),
+          OctoDropdownItem(value: 'medium', label: 'Medium'),
+          OctoDropdownItem(value: 'high', label: 'High'),
+        ],
+      ),
+    );
+  }
 }
 
 class _Sampler extends StatelessWidget {

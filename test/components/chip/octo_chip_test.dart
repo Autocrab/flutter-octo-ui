@@ -20,7 +20,7 @@ void main() {
 
     testWidgets('no dismiss button when onDismiss is null', (tester) async {
       await _pump(tester, const OctoChip(label: 'tag'));
-      expect(find.byType(OctoIconButton), findsNothing);
+      expect(find.byIcon(OctIcons.x_16), findsNothing);
     });
 
     testWidgets('onDismiss adds a close button that fires on tap', (tester) async {
@@ -29,8 +29,9 @@ void main() {
         tester,
         OctoChip(label: 'tag', onDismiss: () => dismissed++),
       );
-      expect(find.byType(OctoIconButton), findsOneWidget);
-      await tester.tap(find.byType(OctoIconButton));
+      final closeIcon = find.byIcon(OctIcons.x_16);
+      expect(closeIcon, findsOneWidget);
+      await tester.tap(closeIcon);
       expect(dismissed, 1);
     });
 
