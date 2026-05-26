@@ -123,17 +123,26 @@ class OctoToast extends StatefulWidget {
         textDirection: direction,
         child: OctoTheme(
           data: themeData,
-          child: _OctoToastEntry(
-            message: message,
-            variant: variant,
-            duration: duration,
-            action: action,
-            dismissible: dismissible,
-            onRemoved: () {
-              if (entry.mounted) entry.remove();
-              controller._isDismissed = true;
-            },
-            registerDismiss: (cb) => controller._dismiss = cb,
+          // OverlayEntry mounts ABOVE the MaterialApp's DefaultTextStyle.
+          // Without an explicit one here, `Text` falls back to the framework
+          // "missing-style" sentinel — the well-known double-yellow
+          // underline. Seed it with the theme's body style.
+          child: DefaultTextStyle(
+            style: themeData.typography.body.copyWith(
+              color: themeData.colors.fg.defaultColor,
+            ),
+            child: _OctoToastEntry(
+              message: message,
+              variant: variant,
+              duration: duration,
+              action: action,
+              dismissible: dismissible,
+              onRemoved: () {
+                if (entry.mounted) entry.remove();
+                controller._isDismissed = true;
+              },
+              registerDismiss: (cb) => controller._dismiss = cb,
+            ),
           ),
         ),
       ),
