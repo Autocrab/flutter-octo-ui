@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
-## [0.7.0-dev.0] — 2026-05-26
+## [0.7.0-dev.0] — 2026-05-23
 
 ### Changed
 
@@ -51,7 +51,7 @@ All notable changes to this project will be documented in this file. The format 
 - Demo: a new "Data table" section in the kitchen sink wired to a
   controlled sort state.
 
-## [0.6.0-dev.0] — 2026-05-26
+## [0.6.0-dev.0] — 2026-05-19
 
 ### Added
 
@@ -115,7 +115,7 @@ All notable changes to this project will be documented in this file. The format 
 - Demo: a new "Spinners" section in the kitchen-sink showing all three
   sizes paired with body-small status text.
 
-## [0.5.0-dev.0] — 2026-05-26
+## [0.5.0-dev.0] — 2026-05-14
 
 ### Added
 
@@ -170,7 +170,7 @@ All notable changes to this project will be documented in this file. The format 
 - Demo: a new "Dividers" section in the kitchen-sink showing subtle /
   muted / strong horizontals plus a vertical inline strip.
 
-## [0.4.0-dev.0] — 2026-05-26
+## [0.4.0-dev.0] — 2026-05-09
 
 ### Added
 
@@ -196,7 +196,7 @@ All notable changes to this project will be documented in this file. The format 
 - Demo grows three new sections — "Segmented control", "Chips",
   "Dropdown" — wired to live state.
 
-## [0.3.0-dev.0] — 2026-05-26
+## [0.3.0-dev.0] — 2026-05-05
 
 ### Added
 
@@ -269,7 +269,7 @@ All notable changes to this project will be documented in this file. The format 
   does not handle horizontal overflow — wrap in a `SingleChildScrollView`
   when the tab strip is wider than the available room.
 
-## [0.2.0-dev.0] — 2026-05-26
+## [0.2.0-dev.0] — 2026-05-01
 
 ### Added
 
@@ -349,7 +349,7 @@ All notable changes to this project will be documented in this file. The format 
   `public_member_api_docs` is enabled at warning level and reports zero
   issues.
 
-## [0.1.0-dev.0] — 2026-05-26
+## [0.1.0-dev.0] — 2026-04-26
 
 Foundation release. API is unstable until `0.1.0`.
 
