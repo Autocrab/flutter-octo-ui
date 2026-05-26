@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- **`OctoProgressBar`** + `OctoProgressBarVariant` + `OctoProgressBarSize`
+  — linear progress indicator. `value: double?` drives determinate (0..1)
+  vs. indeterminate (`null`) modes. Indeterminate uses an
+  `AnimationController.repeat()` sliding stripe; `MediaQuery
+  .disableAnimationsOf` (motion-reduce / ADR-0008) automatically swaps in
+  a static 50%-filled track so the bar still hints "in progress" without
+  burning frames. Four variants (accent / success / attention / danger),
+  two sizes (small = 4 px, medium = 8 px). Determinate value is exposed
+  to `Semantics(value: '${n}%')`.
 - **`OctoDivider`** + `OctoDividerAxis` + `OctoDividerEmphasis` — thin
   separator line between layout regions. Horizontal divider via the
   default constructor, vertical via `OctoDivider.vertical()`. Emphasis
@@ -20,9 +29,9 @@ All notable changes to this project will be documented in this file. The format 
 - **`OctoDropdown<T>`** accepts an optional external `OctoMenuController`,
   letting callers (e.g. golden scenarios) open / close the popover
   programmatically without exposing internal state.
-- Golden coverage: `octo_misc/dividers` (light + dark) and an
-  `octo_pickers/dropdown_open` scenario that snapshots the menu in its
-  open state.
+- Golden coverage: `octo_misc/dividers`, `octo_misc/progress_bars`
+  (light + dark) and an `octo_pickers/dropdown_open` scenario that
+  snapshots the menu in its open state.
 - Demo: a new "Dividers" section in the kitchen-sink showing subtle /
   muted / strong horizontals plus a vertical inline strip.
 

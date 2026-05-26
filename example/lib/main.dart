@@ -511,6 +511,41 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                   ),
                 ),
                 _Section(
+                  title: 'Progress bars — determinate + indeterminate',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const OctoText('accent · 25%',
+                          kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoProgressBar(value: 0.25),
+                      const SizedBox(height: 12),
+                      const OctoText('success · 75%',
+                          kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoProgressBar(
+                        value: 0.75,
+                        variant: OctoProgressBarVariant.success,
+                      ),
+                      const SizedBox(height: 12),
+                      const OctoText('danger · small · 40%',
+                          kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoProgressBar(
+                        value: 0.4,
+                        variant: OctoProgressBarVariant.danger,
+                        size: OctoProgressBarSize.small,
+                      ),
+                      const SizedBox(height: 12),
+                      const OctoText('indeterminate',
+                          kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoProgressBar(),
+                    ],
+                  ),
+                ),
+                _Section(
                   title: 'Dividers — subtle / muted / strong + vertical',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
