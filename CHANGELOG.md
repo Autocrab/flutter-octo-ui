@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [0.6.0-dev.0] — 2026-05-26
+
 ### Added
 
 - **`OctoTimeline`** + `OctoTimelineItem` + `OctoTimelineVariant` —
