@@ -3,8 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:octo_ui/octo_ui.dart';
 
-Size _bodySize(WidgetTester tester) =>
-    tester.getSize(find.byType(ClipRect).last);
+Size _bodySize(WidgetTester tester) => tester.getSize(find.byType(ClipRect).last);
 
 Future<void> _pump(WidgetTester tester, Widget child) async {
   await tester.pumpWidget(
@@ -27,8 +26,7 @@ Future<void> _pump(WidgetTester tester, Widget child) async {
 
 void main() {
   group('OctoCollapsible', () {
-    testWidgets('renders the title and starts collapsed by default',
-        (tester) async {
+    testWidgets('renders the title and starts collapsed by default', (tester) async {
       await _pump(
         tester,
         const OctoCollapsible(title: 'Details', child: Text('Hidden body')),
@@ -40,8 +38,7 @@ void main() {
       expect(body.height, 0);
     });
 
-    testWidgets('initiallyExpanded — body is visible from the start',
-        (tester) async {
+    testWidgets('initiallyExpanded — body is visible from the start', (tester) async {
       await _pump(
         tester,
         const OctoCollapsible(
@@ -53,8 +50,7 @@ void main() {
       expect(_bodySize(tester).height, greaterThan(0));
     });
 
-    testWidgets('tap on header toggles expansion and fires the callback',
-        (tester) async {
+    testWidgets('tap on header toggles expansion and fires the callback', (tester) async {
       final requested = <bool>[];
       await _pump(
         tester,
@@ -125,10 +121,7 @@ void main() {
       );
       // The button + expanded semantics live on the header subtree; the
       // Text widget itself sits inside that Semantics scope.
-      final flags = tester
-          .getSemantics(find.text('Details'))
-          .getSemanticsData()
-          .flagsCollection;
+      final flags = tester.getSemantics(find.text('Details')).getSemanticsData().flagsCollection;
       expect(flags.isButton, isTrue);
       expect(flags.isExpanded, isTrue);
       handle.dispose();

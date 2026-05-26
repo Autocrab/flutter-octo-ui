@@ -12,8 +12,7 @@ Widget _harness(Widget child) {
   );
 }
 
-Future<void> _pump(WidgetTester tester, Widget child) =>
-    tester.pumpWidget(_harness(child));
+Future<void> _pump(WidgetTester tester, Widget child) => tester.pumpWidget(_harness(child));
 
 void main() {
   group('OctoToast (inline)', () {

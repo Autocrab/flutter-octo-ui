@@ -64,8 +64,7 @@ void main() {
       handle.dispose();
     });
 
-    testWidgets('indeterminate — controller repeats while animations on',
-        (tester) async {
+    testWidgets('indeterminate — controller repeats while animations on', (tester) async {
       await _pump(tester, const OctoProgressBar());
       // No FractionallySizedBox in the indeterminate path.
       expect(
@@ -79,9 +78,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 200));
     });
 
-    testWidgets(
-        'indeterminate + disabled animations falls back to static fill',
-        (tester) async {
+    testWidgets('indeterminate + disabled animations falls back to static fill', (tester) async {
       await _pump(tester, const OctoProgressBar(), disableAnimations: true);
       // Static fall-back uses the determinate fill at 50%.
       expect(
