@@ -12,6 +12,14 @@ All notable changes to this project will be documented in this file. The format 
   rules as the inline variant (focus + `FocusHighlightMode.traditional`).
   Requires an enclosing `Overlay` (provided by `MaterialApp` /
   `WidgetsApp`). See ADR-0006.
+- **High-contrast palette** — `OctoColorScheme.light(variant: highContrast)`
+  and `.dark(variant: highContrast)` now return concrete values (Primer-
+  aligned). The shape was reserved in 0.1.0-dev.0; only colour-blind
+  variants (`protanopia` / `deuteranopia` / `tritanopia`) still throw
+  `UnimplementedError`. In hi-contrast dark, `fg.onEmphasis` flips to a
+  near-black because emphasis backgrounds are bright. All four palettes
+  (light, dark, light-hc, dark-hc) pass the WCAG-AA contrast assertions.
+  See ADR-0005.
 
 ### Documentation
 

@@ -15,19 +15,35 @@ void main() {
       expect(light, isNot(equals(dark)));
     });
 
-    test('non-standard variants throw UnimplementedError (ADR-0005)', () {
-      expect(
-        () => OctoColorScheme.light(
-          variant: OctoColorSchemeVariant.highContrast,
-        ),
-        throwsA(isA<UnimplementedError>()),
+    test('high-contrast variant is implemented (ADR-0005)', () {
+      final hcLight = OctoColorScheme.light(
+        variant: OctoColorSchemeVariant.highContrast,
       );
-      expect(
-        () => OctoColorScheme.dark(
-          variant: OctoColorSchemeVariant.protanopia,
-        ),
-        throwsA(isA<UnimplementedError>()),
+      final hcDark = OctoColorScheme.dark(
+        variant: OctoColorSchemeVariant.highContrast,
       );
+      expect(hcLight.variant, OctoColorSchemeVariant.highContrast);
+      expect(hcDark.variant, OctoColorSchemeVariant.highContrast);
+      // Hi-contrast must NOT equal the corresponding standard palette.
+      expect(hcLight, isNot(equals(OctoColorScheme.light())));
+      expect(hcDark, isNot(equals(OctoColorScheme.dark())));
+    });
+
+    test('colour-blind variants still throw UnimplementedError (ADR-0005)', () {
+      for (final v in const [
+        OctoColorSchemeVariant.protanopia,
+        OctoColorSchemeVariant.deuteranopia,
+        OctoColorSchemeVariant.tritanopia,
+      ]) {
+        expect(
+          () => OctoColorScheme.light(variant: v),
+          throwsA(isA<UnimplementedError>()),
+        );
+        expect(
+          () => OctoColorScheme.dark(variant: v),
+          throwsA(isA<UnimplementedError>()),
+        );
+      }
     });
 
     test('== and hashCode are value-based', () {
@@ -79,6 +95,12 @@ void main() {
     for (final entry in <String, OctoColorScheme>{
       'light': OctoColorScheme.light(),
       'dark': OctoColorScheme.dark(),
+      'light-hc': OctoColorScheme.light(
+        variant: OctoColorSchemeVariant.highContrast,
+      ),
+      'dark-hc': OctoColorScheme.dark(
+        variant: OctoColorSchemeVariant.highContrast,
+      ),
     }.entries) {
       final name = entry.key;
       final scheme = entry.value;

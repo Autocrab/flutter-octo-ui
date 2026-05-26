@@ -5,13 +5,13 @@ import 'package:flutter/foundation.dart';
 /// Variant of the colour palette.
 ///
 /// `standard` is the default Primer-like palette. `highContrast` tightens
-/// contrast for low-vision users. The colourblind variants ship as enum slots
-/// only — their concrete values land in a later milestone (ADR-0005).
+/// contrast for low-vision users. The colour-blind variants ship as enum
+/// slots only — their concrete values land in a later milestone (ADR-0005).
 enum OctoColorSchemeVariant {
   /// Default Primer-like palette.
   standard,
 
-  /// Reserved — values land in a later milestone (ADR-0005).
+  /// Tighter contrast for low-vision users (WCAG-AAA-style emphasis).
   highContrast,
 
   /// Reserved — values land in a later milestone (ADR-0005).
@@ -132,6 +132,58 @@ class OctoColorScheme with Diagnosticable {
           ),
         );
       case OctoColorSchemeVariant.highContrast:
+        return const OctoColorScheme(
+          brightness: Brightness.light,
+          variant: OctoColorSchemeVariant.highContrast,
+          canvas: OctoCanvasColors(
+            defaultColor: Color(0xFFFFFFFF),
+            overlay: Color(0xFFFFFFFF),
+            inset: Color(0xFFFFFFFF),
+            subtle: Color(0xFFFFFFFF),
+          ),
+          fg: OctoForegroundColors(
+            defaultColor: Color(0xFF010409),
+            muted: Color(0xFF20252C),
+            subtle: Color(0xFF20252C),
+            onEmphasis: Color(0xFFFFFFFF),
+          ),
+          border: OctoBorderColors(
+            defaultColor: Color(0xFF20252C),
+            muted: Color(0xFF66707B),
+            subtle: Color(0xFF20252C),
+          ),
+          neutral: OctoNeutralColors(
+            fg: Color(0xFF20252C),
+            emphasis: Color(0xFF20252C),
+            emphasisPlus: Color(0xFF010409),
+            muted: Color(0x6666707B),
+            subtle: Color(0x1F66707B),
+          ),
+          accent: OctoAccentColors(
+            fg: Color(0xFF0349B4),
+            emphasis: Color(0xFF0349B4),
+            muted: Color(0x66368CF9),
+            subtle: Color(0xFFDFF7FF),
+          ),
+          success: OctoSuccessColors(
+            fg: Color(0xFF024C1A),
+            emphasis: Color(0xFF055D20),
+            muted: Color(0x66008B3D),
+            subtle: Color(0xFFD2FEDB),
+          ),
+          attention: OctoAttentionColors(
+            fg: Color(0xFF663D00),
+            emphasis: Color(0xFF804D00),
+            muted: Color(0x66AD7100),
+            subtle: Color(0xFFFCF7BE),
+          ),
+          danger: OctoDangerColors(
+            fg: Color(0xFFA40E26),
+            emphasis: Color(0xFFB22732),
+            muted: Color(0x66FF8E95),
+            subtle: Color(0xFFFFEBE9),
+          ),
+        );
       case OctoColorSchemeVariant.protanopia:
       case OctoColorSchemeVariant.deuteranopia:
       case OctoColorSchemeVariant.tritanopia:
@@ -202,6 +254,60 @@ class OctoColorScheme with Diagnosticable {
           ),
         );
       case OctoColorSchemeVariant.highContrast:
+        return const OctoColorScheme(
+          brightness: Brightness.dark,
+          variant: OctoColorSchemeVariant.highContrast,
+          canvas: OctoCanvasColors(
+            defaultColor: Color(0xFF010409),
+            overlay: Color(0xFF272B30),
+            inset: Color(0xFF010409),
+            subtle: Color(0xFF010409),
+          ),
+          fg: OctoForegroundColors(
+            defaultColor: Color(0xFFFFFFFF),
+            muted: Color(0xFFFFFFFF),
+            subtle: Color(0xFF9EA7B3),
+            // Hi-contrast dark uses *bright* emphasis backgrounds, so the
+            // foreground that sits on them must be dark — not white.
+            onEmphasis: Color(0xFF010409),
+          ),
+          border: OctoBorderColors(
+            defaultColor: Color(0xFF9EA7B3),
+            muted: Color(0xFF7A828E),
+            subtle: Color(0xFF9EA7B3),
+          ),
+          neutral: OctoNeutralColors(
+            fg: Color(0xFF9EA7B3),
+            emphasis: Color(0xFF9EA7B3),
+            emphasisPlus: Color(0xFFFFFFFF),
+            muted: Color(0x667A828E),
+            subtle: Color(0x1F272B30),
+          ),
+          accent: OctoAccentColors(
+            fg: Color(0xFF71B7FF),
+            emphasis: Color(0xFF409EFF),
+            muted: Color(0x66409EFF),
+            subtle: Color(0xFF002A6B),
+          ),
+          success: OctoSuccessColors(
+            fg: Color(0xFF26CD4D),
+            emphasis: Color(0xFF09B43A),
+            muted: Color(0x66008B3D),
+            subtle: Color(0xFF002910),
+          ),
+          attention: OctoAttentionColors(
+            fg: Color(0xFFF0B72F),
+            emphasis: Color(0xFFC69026),
+            muted: Color(0x66B58407),
+            subtle: Color(0xFF2E1A00),
+          ),
+          danger: OctoDangerColors(
+            fg: Color(0xFFFF9492),
+            emphasis: Color(0xFFFF6A69),
+            muted: Color(0x66FF6A69),
+            subtle: Color(0xFF4C0014),
+          ),
+        );
       case OctoColorSchemeVariant.protanopia:
       case OctoColorSchemeVariant.deuteranopia:
       case OctoColorSchemeVariant.tritanopia:
