@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [0.8.1] — 2026-05-26
+
+### Changed
+
+- Minor fixes — README now ships pub.dev + CI badges and the install
+  snippet drops the git-ref fallback now that the package is live.
+
 ## [0.8.0] — 2026-05-26
 
 First stable release on pub.dev. Promotes the `0.7.0-dev.0` component
