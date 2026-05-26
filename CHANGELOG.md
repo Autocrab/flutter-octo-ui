@@ -12,6 +12,14 @@ All notable changes to this project will be documented in this file. The format 
   rules as the inline variant (focus + `FocusHighlightMode.traditional`).
   Requires an enclosing `Overlay` (provided by `MaterialApp` /
   `WidgetsApp`). See ADR-0006.
+- `OctoMenu` + `OctoMenuController` — popover-style menu anchored to a
+  trigger widget. Composes `OctoActionList` inside an `OverlayPortal`
+  tracked to the trigger via `LayerLink` + `CompositedTransformFollower`.
+  Dismisses on outside tap (`TapRegion`), `Escape` key
+  (`Shortcuts`/`Actions` → `DismissIntent`), and (by default) on item
+  selection. `closeOnSelect: false` keeps the menu open for multi-select
+  filter patterns. Width snaps to the trigger's measured width via
+  `IntrinsicWidth` + minimum-width constraint; override with `minWidth`.
 - `OctoTooltip` — thin wrapper over Material's `Tooltip`. Visuals (padding,
   radius, colours, typography) come from the `TooltipThemeData` installed
   by `toMaterialTheme()`; behaviour (hover-after-delay, long-press, smart

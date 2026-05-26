@@ -40,9 +40,11 @@ class OctoActionList extends StatelessWidget {
   final bool shrinkWrap;
 
   /// Creates an action list backed by an eager [items] list.
-  const OctoActionList(
-      {super.key, required List<OctoActionListItem> this.items, this.shrinkWrap = true,})
-      : itemCount = null,
+  const OctoActionList({
+    super.key,
+    required List<OctoActionListItem> this.items,
+    this.shrinkWrap = true,
+  })  : itemCount = null,
         itemBuilder = null;
 
   /// Lazy variant — items are built on demand. Use for long lists where

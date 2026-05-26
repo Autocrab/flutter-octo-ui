@@ -73,7 +73,7 @@ class _Sampler extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.all(16),
-    child: SizedBox(width: 280, child: child),
-  );
+        padding: const EdgeInsets.all(16),
+        child: SizedBox(width: 280, child: child),
+      );
 }
