@@ -134,6 +134,8 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
   bool _notifications = true;
   bool? _terms = false;
   String _priority = 'medium';
+  bool _showSkeleton = false;
+  String? _dialogResult;
 
   @override
   void dispose() {
@@ -197,6 +199,59 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                _Section(
+                  title: 'Breadcrumbs',
+                  child: OctoBreadcrumbs(
+                    items: [
+                      OctoBreadcrumbItem(
+                        label: 'Autocrab',
+                        onPressed: () => _record('Autocrab'),
+                      ),
+                      OctoBreadcrumbItem(
+                        label: 'octo_ui',
+                        onPressed: () => _record('octo_ui'),
+                      ),
+                      const OctoBreadcrumbItem(label: 'main'),
+                    ],
+                  ),
+                ),
+                _Section(
+                  title: 'Avatars',
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: const [
+                      OctoAvatar(
+                        initials: 'X',
+                        size: OctoAvatarSize.xs,
+                        semanticLabel: 'X',
+                      ),
+                      OctoAvatar(
+                        initials: 'S',
+                        size: OctoAvatarSize.sm,
+                        semanticLabel: 'S',
+                      ),
+                      OctoAvatar(initials: 'MA', semanticLabel: 'MA'),
+                      OctoAvatar(
+                        initials: 'JD',
+                        size: OctoAvatarSize.lg,
+                        semanticLabel: 'JD',
+                      ),
+                      OctoAvatar(
+                        initials: 'XL',
+                        size: OctoAvatarSize.xl,
+                        semanticLabel: 'XL',
+                      ),
+                      OctoAvatar(
+                        initials: 'OG',
+                        shape: OctoAvatarShape.square,
+                        size: OctoAvatarSize.lg,
+                        semanticLabel: 'OG org',
+                      ),
+                    ],
+                  ),
+                ),
                 _Section(
                   title: 'Underline nav — section tabs',
                   child: SingleChildScrollView(
@@ -562,6 +617,116 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                _Section(
+                  title: 'Skeleton — loading placeholders',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          OctoButton.label(
+                            _showSkeleton ? 'Hide loading' : 'Show loading',
+                            onPressed: () =>
+                                setState(() => _showSkeleton = !_showSkeleton),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: theme.spacing.gap.md),
+                      if (_showSkeleton)
+                        const SizedBox(
+                          width: 320,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                children: [
+                                  OctoSkeletonAvatar(),
+                                  SizedBox(width: 12),
+                                  Expanded(child: OctoSkeletonText(lines: 2)),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                              OctoSkeleton(height: 32),
+                            ],
+                          ),
+                        )
+                      else
+                        Row(
+                          children: [
+                            const OctoAvatar(
+                                initials: 'JD', semanticLabel: 'JD'),
+                            SizedBox(width: theme.spacing.gap.md),
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  OctoText(
+                                    'Jane Doe',
+                                    kind: OctoTextKind.bodyEmphasis,
+                                  ),
+                                  OctoText(
+                                    'Opened PR #42 a moment ago.',
+                                    kind: OctoTextKind.bodySmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                ),
+                _Section(
+                  title: 'Dialog — confirm destructive action',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      OctoButton.label(
+                        'Delete repository…',
+                        leadingIcon: const Icon(OctIcons.trash_16),
+                        variant: OctoButtonVariant.danger,
+                        onPressed: () async {
+                          final ctx = context;
+                          final result = await OctoDialog.show<String>(
+                            context: ctx,
+                            title: const OctoDialogTitle('Delete repository?'),
+                            content: const OctoText(
+                              'This action cannot be undone. The repository '
+                              'and all of its history will be permanently '
+                              'removed.',
+                            ),
+                            actions: [
+                              Builder(
+                                builder: (dCtx) => OctoButton.label(
+                                  'Cancel',
+                                  onPressed: () =>
+                                      Navigator.pop(dCtx, 'cancel'),
+                                ),
+                              ),
+                              Builder(
+                                builder: (dCtx) => OctoButton.label(
+                                  'Delete',
+                                  onPressed: () =>
+                                      Navigator.pop(dCtx, 'delete'),
+                                  variant: OctoButtonVariant.danger,
+                                ),
+                              ),
+                            ],
+                          );
+                          setState(() => _dialogResult = result ?? 'dismissed');
+                        },
+                      ),
+                      SizedBox(height: theme.spacing.gap.sm),
+                      OctoText(
+                        _dialogResult == null
+                            ? 'No result yet.'
+                            : 'Last result: $_dialogResult',
+                        kind: OctoTextKind.bodySmall,
+                        color: theme.colors.fg.muted,
+                      ),
+                    ],
                   ),
                 ),
                 _Section(

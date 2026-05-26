@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [0.3.0-dev.0] — 2026-05-26
+
 ### Added
 
 - **`OctoDialog`** + `OctoDialog.show<T>()` — themed modal dialog. Wraps
@@ -201,6 +203,7 @@ Foundation release. API is unstable until `0.1.0`.
 - Widgetbook playground.
 - Goldens for dynamic states (`hovered`, `pressed`, `focused`, `loading`).
 
-[Unreleased]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.2.0-dev.0...HEAD
+[Unreleased]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.3.0-dev.0...HEAD
+[0.3.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.2.0-dev.0...v0.3.0-dev.0
 [0.2.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.1.0-dev.0...v0.2.0-dev.0
 [0.1.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/releases/tag/v0.1.0-dev.0
