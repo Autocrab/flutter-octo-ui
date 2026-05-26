@@ -91,6 +91,13 @@ class OctoButton extends StatefulWidget {
   /// Whether the button should request focus when first mounted.
   final bool autofocus;
 
+  /// Test-only override that forces the visual state set, bypassing the
+  /// internal [WidgetStatesController]. Used by golden tests to capture
+  /// hover / pressed / selected appearances without driving real pointer
+  /// events. Never set in production code.
+  @visibleForTesting
+  final Set<WidgetState>? debugStates;
+
   /// Creates a button with an arbitrary [child]. Prefer [OctoButton.label]
   /// for the common text-only case.
   const OctoButton({
@@ -105,6 +112,7 @@ class OctoButton extends StatefulWidget {
     this.semanticLabel,
     this.focusNode,
     this.autofocus = false,
+    this.debugStates,
   });
 
   /// Convenience for text-only buttons. The string is rendered with
@@ -120,6 +128,7 @@ class OctoButton extends StatefulWidget {
     this.trailingIcon,
     this.focusNode,
     this.autofocus = false,
+    this.debugStates,
   })  : child = OctoText(label, kind: OctoTextKind.bodyEmphasis),
         semanticLabel = label;
 
@@ -277,7 +286,7 @@ class _OctoButtonState extends State<OctoButton> {
             child: ListenableBuilder(
               listenable: _states,
               builder: (context, _) {
-                final states = _states.value;
+                final states = widget.debugStates ?? _states.value;
                 final colors = _resolveColors(theme, states);
                 return OctoFocusRing(
                   borderRadius: borderRadius,

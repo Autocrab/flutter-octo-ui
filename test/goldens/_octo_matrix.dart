@@ -19,6 +19,46 @@ Widget wrapInOctoTheme(Widget app, MatrixCombination combination) {
   return OctoTheme(data: octo, child: app);
 }
 
+/// Wraps a focused-state scenario so the focus ring actually paints.
+///
+/// `OctoFocusRing` only shows when `FocusManager.instance.highlightMode` is
+/// [FocusHighlightMode.traditional]. In production the manager auto-flips
+/// to `traditional` after a keyboard event; in goldens nothing simulates a
+/// keyboard press, so we force the strategy in [initState] and restore it
+/// in [dispose] to keep tests isolated.
+///
+/// The wrapped subtree typically contains a widget with `autofocus: true`.
+class GoldenFocusScope extends StatefulWidget {
+  /// Wrapped scenario content.
+  final Widget child;
+
+  /// Wraps [child] in a focus-traditional override.
+  const GoldenFocusScope({super.key, required this.child});
+
+  @override
+  State<GoldenFocusScope> createState() => _GoldenFocusScopeState();
+}
+
+class _GoldenFocusScopeState extends State<GoldenFocusScope> {
+  late final FocusHighlightStrategy _previous;
+
+  @override
+  void initState() {
+    super.initState();
+    _previous = FocusManager.instance.highlightStrategy;
+    FocusManager.instance.highlightStrategy = FocusHighlightStrategy.alwaysTraditional;
+  }
+
+  @override
+  void dispose() {
+    FocusManager.instance.highlightStrategy = _previous;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
 /// Pixel-diff tolerance for every Octo golden, expressed as a fraction.
 ///
 /// `0.01` = up to 1 % of pixels may differ before a test fails. This absorbs

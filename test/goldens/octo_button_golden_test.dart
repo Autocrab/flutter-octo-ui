@@ -39,6 +39,70 @@ void main() {
           ),
         ),
       ),
+      MatrixScenario(
+        'hovered',
+        builder: () => _Sampler(
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              OctoButton.label(
+                'Primary',
+                onPressed: _noop,
+                variant: OctoButtonVariant.primary,
+                debugStates: const {WidgetState.hovered},
+              ),
+              OctoButton.label(
+                'Standard',
+                onPressed: _noop,
+                debugStates: const {WidgetState.hovered},
+              ),
+              OctoButton.label(
+                'Invisible',
+                onPressed: _noop,
+                variant: OctoButtonVariant.invisible,
+                debugStates: const {WidgetState.hovered},
+              ),
+            ],
+          ),
+        ),
+      ),
+      MatrixScenario(
+        'pressed',
+        builder: () => _Sampler(
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              OctoButton.label(
+                'Primary',
+                onPressed: _noop,
+                variant: OctoButtonVariant.primary,
+                debugStates: const {WidgetState.pressed},
+              ),
+              OctoButton.label(
+                'Standard',
+                onPressed: _noop,
+                debugStates: const {WidgetState.pressed},
+              ),
+              OctoButton.label(
+                'Danger',
+                onPressed: _noop,
+                variant: OctoButtonVariant.danger,
+                debugStates: const {WidgetState.pressed},
+              ),
+            ],
+          ),
+        ),
+      ),
+      MatrixScenario(
+        'focused',
+        builder: () => GoldenFocusScope(
+          child: _Sampler(
+            child: OctoButton.label('Focused', onPressed: _noop, autofocus: true),
+          ),
+        ),
+      ),
     ],
     axes: MatrixAxes(themes: octoThemes),
     wrapApp: wrapInOctoTheme,

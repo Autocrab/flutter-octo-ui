@@ -12,6 +12,14 @@ All notable changes to this project will be documented in this file. The format 
   rules as the inline variant (focus + `FocusHighlightMode.traditional`).
   Requires an enclosing `Overlay` (provided by `MaterialApp` /
   `WidgetsApp`). See ADR-0006.
+- **Dynamic-state golden coverage** — `hovered`, `pressed`, `focused`
+  scenarios for `OctoButton` and `OctoIconButton`. A new
+  `@visibleForTesting` `debugStates: Set<WidgetState>?` parameter on both
+  components lets goldens inject hover / pressed without driving real
+  pointer events; `focused` uses `autofocus: true` plus a
+  `GoldenFocusScope` helper that pins `FocusManager.highlightStrategy` to
+  `alwaysTraditional` for the duration of the scenario. Total goldens grow
+  from 28 to 40.
 - **High-contrast palette** — `OctoColorScheme.light(variant: highContrast)`
   and `.dark(variant: highContrast)` now return concrete values (Primer-
   aligned). The shape was reserved in 0.1.0-dev.0; only colour-blind

@@ -34,6 +34,11 @@ class OctoIconButton extends StatelessWidget {
   /// Whether the button should request focus when first mounted.
   final bool autofocus;
 
+  /// Test-only override forwarded to the underlying [OctoButton]. See
+  /// [OctoButton.debugStates].
+  @visibleForTesting
+  final Set<WidgetState>? debugStates;
+
   /// Creates an icon-only button.
   const OctoIconButton({
     super.key,
@@ -45,6 +50,7 @@ class OctoIconButton extends StatelessWidget {
     this.loading = false,
     this.focusNode,
     this.autofocus = false,
+    this.debugStates,
   });
 
   OctoIconSize get _iconSize => switch (size) {
@@ -63,6 +69,7 @@ class OctoIconButton extends StatelessWidget {
       semanticLabel: semanticLabel,
       focusNode: focusNode,
       autofocus: autofocus,
+      debugStates: debugStates,
       // The icon needs no inner semantic label — the outer Semantics(button)
       // from OctoButton carries `semanticLabel`. Excluding the icon's
       // semantics avoids a doubled announcement.

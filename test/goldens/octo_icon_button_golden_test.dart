@@ -60,6 +60,67 @@ void main() {
           ),
         ),
       ),
+      MatrixScenario(
+        'hovered',
+        builder: () => const _Sampler(
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              OctoIconButton(
+                icon: _star,
+                onPressed: _noop,
+                semanticLabel: 'Star',
+                debugStates: {WidgetState.hovered},
+              ),
+              OctoIconButton(
+                icon: _star,
+                onPressed: _noop,
+                variant: OctoButtonVariant.invisible,
+                semanticLabel: 'Star',
+                debugStates: {WidgetState.hovered},
+              ),
+            ],
+          ),
+        ),
+      ),
+      MatrixScenario(
+        'pressed',
+        builder: () => const _Sampler(
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              OctoIconButton(
+                icon: _star,
+                onPressed: _noop,
+                semanticLabel: 'Star',
+                debugStates: {WidgetState.pressed},
+              ),
+              OctoIconButton(
+                icon: _star,
+                onPressed: _noop,
+                variant: OctoButtonVariant.primary,
+                semanticLabel: 'Star',
+                debugStates: {WidgetState.pressed},
+              ),
+            ],
+          ),
+        ),
+      ),
+      MatrixScenario(
+        'focused',
+        builder: () => const GoldenFocusScope(
+          child: _Sampler(
+            child: OctoIconButton(
+              icon: _star,
+              onPressed: _noop,
+              semanticLabel: 'Star',
+              autofocus: true,
+            ),
+          ),
+        ),
+      ),
     ],
     axes: MatrixAxes(themes: octoThemes),
     wrapApp: wrapInOctoTheme,
