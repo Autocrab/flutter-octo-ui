@@ -1,0 +1,66 @@
+name: Pages
+
+on:
+  # Run on every push to main so the live demo tracks the trunk; the
+  # build is fast enough (~2 min) that pinning to releases is overkill.
+  push:
+    branches: [main]
+  # Allow manual reruns from the Actions tab in case GitHub Pages has
+  # a hiccup or the demo needs to be redeployed mid-cycle.
+  workflow_dispatch:
+
+# Cancel in-flight runs on the same ref to avoid two pages-deploy
+# jobs racing each other for the same environment.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  # actions/deploy-pages requires both — pages: write to push the
+  # artifact, id-token: write so GitHub can mint a short-lived OIDC
+  # token for the deploy.
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build kitchen-sink web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.7'
+          channel: stable
+          cache: true
+
+      - name: Resolve example dependencies
+        working-directory: example
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: example
+        # `--base-href` is the GitHub Pages sub-path. The repo lives at
+        # `Autocrab/flutter-octo-ui`, so the URL prefix is
+        # `/flutter-octo-ui/`. CanvasKit renders text identically to
+        # the macOS dev environment used for goldens.
+        run: flutter build web --release --base-href "/flutter-octo-ui/"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: example/build/web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
