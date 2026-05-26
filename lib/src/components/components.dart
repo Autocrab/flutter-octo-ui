@@ -9,6 +9,7 @@ export 'command_palette/octo_command_palette.dart';
 export 'command_palette/octo_command_palette_controller.dart';
 export 'counter_label/octo_counter_label.dart';
 export 'dialog/octo_dialog.dart';
+export 'divider/octo_divider.dart';
 export 'dropdown/octo_dropdown.dart';
 export 'flash/octo_flash.dart';
 export 'icon_button/octo_icon_button.dart';

@@ -511,6 +511,63 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                   ),
                 ),
                 _Section(
+                  title: 'Dividers — subtle / muted / strong + vertical',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const OctoText('Subtle', kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoDivider(emphasis: OctoDividerEmphasis.subtle),
+                      const SizedBox(height: 12),
+                      const OctoText('Muted', kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoDivider(),
+                      const SizedBox(height: 12),
+                      const OctoText('Strong + indent',
+                          kind: OctoTextKind.bodySmall),
+                      const SizedBox(height: 6),
+                      const OctoDivider(
+                        emphasis: OctoDividerEmphasis.strong,
+                        indent: 32,
+                        endIndent: 32,
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 28,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Center(
+                                child: OctoText('Inline A',
+                                    kind: OctoTextKind.bodySmall),
+                              ),
+                            ),
+                            const OctoDivider.vertical(),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Center(
+                                child: OctoText('Inline B',
+                                    kind: OctoTextKind.bodySmall),
+                              ),
+                            ),
+                            const OctoDivider.vertical(),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Center(
+                                child: OctoText('Inline C',
+                                    kind: OctoTextKind.bodySmall),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
                   title: 'Form controls',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

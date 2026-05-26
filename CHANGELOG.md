@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- **`OctoDivider`** + `OctoDividerAxis` + `OctoDividerEmphasis` — thin
+  separator line between layout regions. Horizontal divider via the
+  default constructor, vertical via `OctoDivider.vertical()`. Emphasis
+  maps onto `theme.colors.border.{subtle,muted,defaultColor}`; `color`
+  overrides the resolved palette value when needed. `indent` /
+  `endIndent` inset the painted region while the widget itself still
+  spans the full cross-axis (mirrors Material's `Divider` API). Wrapped
+  in `ExcludeSemantics` — dividers are decorative.
+- **`OctoChip`** ships a compact custom `_ChipDismissButton` (16×16)
+  instead of reusing `OctoIconButton` so chips with and without an `x`
+  share the same height.
+- **`OctoDropdown<T>`** accepts an optional external `OctoMenuController`,
+  letting callers (e.g. golden scenarios) open / close the popover
+  programmatically without exposing internal state.
+- Golden coverage: `octo_misc/dividers` (light + dark) and an
+  `octo_pickers/dropdown_open` scenario that snapshots the menu in its
+  open state.
+- Demo: a new "Dividers" section in the kitchen-sink showing subtle /
+  muted / strong horizontals plus a vertical inline strip.
+
 ## [0.4.0-dev.0] — 2026-05-26
 
 ### Added
