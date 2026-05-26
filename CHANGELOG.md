@@ -12,6 +12,11 @@ All notable changes to this project will be documented in this file. The format 
   rules as the inline variant (focus + `FocusHighlightMode.traditional`).
   Requires an enclosing `Overlay` (provided by `MaterialApp` /
   `WidgetsApp`). See ADR-0006.
+- `OctoCounterLabel` — compact numeric counter pill (Primer
+  "CounterLabel"). 3 variants (standard / primary / secondary); optional
+  `maxDisplayed` clamps oversized counts with a `+` suffix
+  (`OctoCounterLabel(150, maxDisplayed: 99)` → "99+"). Optional
+  `semanticLabel` to spell out what the count counts.
 - `OctoCommandPalette` + `OctoCommandPaletteController` — modal command
   palette rendered through `OverlayPortal` on top of the host app. The
   modal contains an autofocused search field that filters items by

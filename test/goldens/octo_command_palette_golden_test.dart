@@ -47,26 +47,26 @@ class _PaletteStageState extends State<_PaletteStage> {
       color: theme.colors.canvas.defaultColor,
       child: OctoCommandPalette(
         controller: _controller,
-        items: [
+        items: const [
           OctoActionListItem(
             label: 'New issue',
-            leading: const Icon(Icons.add),
+            leading: Icon(Icons.add),
             onPressed: _noop,
           ),
           OctoActionListItem(
             label: 'New pull request',
-            leading: const Icon(Icons.merge_type),
+            leading: Icon(Icons.merge_type),
             onPressed: _noop,
           ),
           OctoActionListItem(
             label: 'Open settings',
-            leading: const Icon(Icons.settings_outlined),
+            leading: Icon(Icons.settings_outlined),
             description: 'Repository preferences and integrations',
             onPressed: _noop,
           ),
           OctoActionListItem(
             label: 'Toggle dark mode',
-            leading: const Icon(Icons.dark_mode_outlined),
+            leading: Icon(Icons.dark_mode_outlined),
             onPressed: _noop,
           ),
         ],

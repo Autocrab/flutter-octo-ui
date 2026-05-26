@@ -3,6 +3,7 @@ export 'action_list/octo_action_list_item.dart';
 export 'button/octo_button.dart';
 export 'command_palette/octo_command_palette.dart';
 export 'command_palette/octo_command_palette_controller.dart';
+export 'counter_label/octo_counter_label.dart';
 export 'flash/octo_flash.dart';
 export 'icon_button/octo_icon_button.dart';
 export 'label/octo_label.dart';
