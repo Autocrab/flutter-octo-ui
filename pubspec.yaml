@@ -1,10 +1,10 @@
 name: octo_ui
 description: >-
-  GitHub Primer-inspired Flutter UI kit for web, desktop, devtools, dashboards,
-  and admin panels. Not affiliated with GitHub.
+  Cross-platform Primer-inspired Flutter UI kit. Optimised for devtools,
+  dashboards, and dense data-heavy interfaces.
 version: 0.7.0-dev.0
-repository: https://github.com/maratshakirov/octo_ui
-issue_tracker: https://github.com/maratshakirov/octo_ui/issues
+repository: https://github.com/Autocrab/flutter-octo-ui
+issue_tracker: https://github.com/Autocrab/flutter-octo-ui/issues
 
 environment:
   sdk: ^3.6.0

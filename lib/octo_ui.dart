@@ -1,7 +1,5 @@
-/// GitHub Primer-inspired Flutter UI kit for web, desktop, devtools,
-/// dashboards, and admin panels.
-///
-/// Not affiliated with, endorsed by, or sponsored by GitHub.
+/// Cross-platform Primer-inspired Flutter UI kit, optimised for
+/// devtools, dashboards, and dense data-heavy interfaces.
 library;
 
 export 'package:flutter_octicons/flutter_octicons.dart' show OctIcons;
