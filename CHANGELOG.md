@@ -8,14 +8,21 @@ All notable changes to this project will be documented in this file. The format 
 
 - **`OctoDataTable<T>`** + `OctoDataColumn<T>` + `OctoDataColumnAlignment`
   + `OctoSortDirection` + `OctoDataTableDensity` — tabular presenter
-  generic over the row type. Columns expose either a `text: T → String`
-  accessor or a `cell: (BuildContext, T) → Widget` builder (cell wins
-  when both are present); columns can opt into `sortable` to render a
-  tappable header that cycles asc → desc → none and reports via
-  `onSortChanged`. The table is presentation only — the parent owns the
-  sorted list. Optional `onRowTap`, `zebra` striping, `density`
-  (comfortable / compact), and an `emptyMessage` empty state. The
-  rounded border + per-row dividers come from `border.muted`; the
+  generic over the row type, built on Flutter's `Table` widget so
+  columns size by `IntrinsicColumnWidth` by default — each column hugs
+  the widest of its header and cells, no hand-tuned widths required.
+  Override with `OctoDataColumn.width` (fixed pixels) or
+  `OctoDataColumn.flex` (the column that should soak up leftover
+  horizontal space — typically the title / subject column). Columns
+  expose either a `text: T → String` accessor or a
+  `cell: (BuildContext, T) → Widget` builder (cell wins when both are
+  present); columns can opt into `sortable` to render a tappable
+  header that cycles asc → desc → none and reports via `onSortChanged`.
+  The table is presentation only — the parent owns the sorted list.
+  Optional `onRowTap`, `zebra` striping, `density` (comfortable /
+  compact), an `emptyMessage` empty state, and an optional `header`
+  widget override per column (e.g. an icon for tight numeric columns).
+  The rounded border + per-row dividers come from `border.muted`; the
   header sits on `canvas.subtle`.
 - Golden coverage: `octo_data_table/{default,sorted_desc,compact,empty}`
   (light + dark) — the scenario file uses `MatrixDevice.tabletLandscape`

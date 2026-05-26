@@ -635,16 +635,18 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                       OctoDataColumn<_DemoPr>(
                         label: '#',
                         text: (r) => '#${r.number}',
-                        width: 56,
                       ),
+                      // Title soaks up the leftover horizontal space;
+                      // the other columns hug their content via
+                      // IntrinsicColumnWidth.
                       OctoDataColumn<_DemoPr>(
                         label: 'Title',
                         text: (r) => r.title,
                         sortable: true,
+                        flex: 1,
                       ),
                       OctoDataColumn<_DemoPr>(
                         label: 'Status',
-                        width: 110,
                         cell: (_, r) => OctoStateLabel(
                           label: r.status.name,
                           variant: r.status,
@@ -660,7 +662,6 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                         text: (r) => '${r.comments}',
                         alignment: OctoDataColumnAlignment.end,
                         sortable: true,
-                        width: 110,
                       ),
                     ],
                   ),

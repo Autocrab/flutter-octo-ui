@@ -21,8 +21,15 @@ const _rows = [
 ];
 
 List<OctoDataColumn<_PR>> _buildColumns() => [
-      OctoDataColumn<_PR>(label: '#', text: (r) => '#${r.number}', width: 60),
-      OctoDataColumn<_PR>(label: 'Title', text: (r) => r.title, sortable: true),
+      OctoDataColumn<_PR>(label: '#', text: (r) => '#${r.number}'),
+      // Title is the wide flex column — it soaks up the leftover space
+      // while every other column hugs its content via IntrinsicColumnWidth.
+      OctoDataColumn<_PR>(
+        label: 'Title',
+        text: (r) => r.title,
+        sortable: true,
+        flex: 1,
+      ),
       OctoDataColumn<_PR>(
         label: 'Status',
         cell: (_, r) => OctoStateLabel(
@@ -30,7 +37,6 @@ List<OctoDataColumn<_PR>> _buildColumns() => [
           variant: r.status,
           emphasis: OctoStateLabelEmphasis.low,
         ),
-        width: 100,
       ),
       OctoDataColumn<_PR>(label: 'Author', text: (r) => r.author),
       OctoDataColumn<_PR>(
@@ -38,7 +44,6 @@ List<OctoDataColumn<_PR>> _buildColumns() => [
         text: (r) => '${r.comments}',
         alignment: OctoDataColumnAlignment.end,
         sortable: true,
-        width: 96,
       ),
     ];
 

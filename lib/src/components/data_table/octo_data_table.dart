@@ -38,6 +38,12 @@ enum OctoDataTableDensity {
 /// is *presentation only* — it does not reorder [rows] internally.
 /// Wire [sortColumnIndex] / [sortDirection] + [onSortChanged] to the
 /// parent and sort the underlying list there.
+///
+/// Layout is delegated to Flutter's `Table` widget so columns honour
+/// `IntrinsicColumnWidth` by default — set [OctoDataColumn.width] for a
+/// fixed-pixel column or [OctoDataColumn.flex] for the column that
+/// should soak up the leftover horizontal space (usually the title /
+/// subject column).
 class OctoDataTable<T> extends StatelessWidget {
   /// Column descriptors. Order matters — left to right.
   final List<OctoDataColumn<T>> columns;
@@ -82,6 +88,21 @@ class OctoDataTable<T> extends StatelessWidget {
     this.emptyMessage = 'No data',
   });
 
+  Map<int, TableColumnWidth> _columnWidths() {
+    final widths = <int, TableColumnWidth>{};
+    for (var i = 0; i < columns.length; i++) {
+      final col = columns[i];
+      if (col.width != null) {
+        widths[i] = FixedColumnWidth(col.width!);
+      } else if (col.flex != null && col.flex! > 0) {
+        widths[i] = FlexColumnWidth(col.flex!.toDouble());
+      } else {
+        widths[i] = const IntrinsicColumnWidth();
+      }
+    }
+    return widths;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = OctoTheme.of(context);
@@ -101,76 +122,63 @@ class OctoDataTable<T> extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _Header(
-                columns: columns,
-                sortColumnIndex: sortColumnIndex,
-                sortDirection: sortDirection,
-                onSortChanged: onSortChanged,
-                density: density,
-                theme: theme,
+              Table(
+                columnWidths: _columnWidths(),
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                children: [
+                  _headerRow(theme),
+                  if (rows.isNotEmpty)
+                    for (var i = 0; i < rows.length; i++) _dataRow(theme, i),
+                ],
               ),
-              if (rows.isEmpty)
-                _EmptyState(message: emptyMessage, theme: theme)
-              else
-                for (var i = 0; i < rows.length; i++)
-                  _Row<T>(
-                    columns: columns,
-                    row: rows[i],
-                    zebra: zebra && i.isOdd,
-                    onTap: onRowTap == null ? null : () => onRowTap!(rows[i]),
-                    isLast: i == rows.length - 1,
-                    density: density,
-                    theme: theme,
-                  ),
+              if (rows.isEmpty) _EmptyState(message: emptyMessage, theme: theme),
             ],
           ),
         ),
       ),
     );
   }
-}
 
-class _Header<T> extends StatelessWidget {
-  final List<OctoDataColumn<T>> columns;
-  final int? sortColumnIndex;
-  final OctoSortDirection sortDirection;
-  final void Function(int columnIndex, OctoSortDirection direction)? onSortChanged;
-  final OctoDataTableDensity density;
-  final OctoThemeData theme;
-
-  const _Header({
-    required this.columns,
-    required this.sortColumnIndex,
-    required this.sortDirection,
-    required this.onSortChanged,
-    required this.density,
-    required this.theme,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
+  TableRow _headerRow(OctoThemeData theme) {
+    return TableRow(
       decoration: BoxDecoration(
         color: theme.colors.canvas.subtle,
         border: Border(bottom: BorderSide(color: theme.colors.border.muted)),
       ),
-      child: Row(
-        children: [
-          for (var i = 0; i < columns.length; i++)
-            _flex(
-              columns[i],
-              _HeaderCell<T>(
-                column: columns[i],
-                columnIndex: i,
-                isSorted: sortColumnIndex == i,
-                direction: sortDirection,
-                onSortChanged: onSortChanged,
-                density: density,
-                theme: theme,
-              ),
-            ),
-        ],
+      children: [
+        for (var i = 0; i < columns.length; i++)
+          _HeaderCell<T>(
+            column: columns[i],
+            columnIndex: i,
+            isSorted: sortColumnIndex == i,
+            direction: sortDirection,
+            onSortChanged: onSortChanged,
+            density: density,
+            theme: theme,
+          ),
+      ],
+    );
+  }
+
+  TableRow _dataRow(OctoThemeData theme, int index) {
+    final row = rows[index];
+    final isLast = index == rows.length - 1;
+    final bg = zebra && index.isOdd ? theme.colors.neutral.subtle : null;
+    return TableRow(
+      decoration: BoxDecoration(
+        color: bg,
+        border: isLast ? null : Border(bottom: BorderSide(color: theme.colors.border.muted)),
       ),
+      children: [
+        for (final col in columns)
+          _DataCell<T>(
+            column: col,
+            row: row,
+            density: density,
+            theme: theme,
+            onTap: onRowTap == null ? null : () => onRowTap!(row),
+          ),
+      ],
     );
   }
 }
@@ -239,7 +247,7 @@ class _HeaderCellState<T> extends State<_HeaderCell<T>> {
       case OctoSortDirection.asc:
         return OctIcons.triangle_up_16;
       case OctoSortDirection.desc:
-        return OctoSortDirection.desc == widget.direction ? OctIcons.triangle_down_16 : null;
+        return OctIcons.triangle_down_16;
       case OctoSortDirection.none:
         return null;
     }
@@ -249,14 +257,19 @@ class _HeaderCellState<T> extends State<_HeaderCell<T>> {
   Widget build(BuildContext context) {
     final align = _mainAxisAlign(widget.column.alignment);
     final pad = _vPad(widget.density, widget.theme);
-    final label = OctoText(
-      widget.column.label,
-      kind: OctoTextKind.bodyEmphasis,
-      color: widget.theme.colors.fg.muted,
+    final label = IconTheme(
+      data: IconThemeData(color: widget.theme.colors.fg.muted, size: 14),
+      child: widget.column.header ??
+          OctoText(
+            widget.column.label,
+            kind: OctoTextKind.bodyEmphasis,
+            color: widget.theme.colors.fg.muted,
+          ),
     );
     final icon = _sortIcon();
     final content = Row(
       mainAxisAlignment: align,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(child: label),
         if (icon != null) ...[
@@ -322,104 +335,46 @@ class _HeaderCellState<T> extends State<_HeaderCell<T>> {
   }
 }
 
-class _Row<T> extends StatefulWidget {
-  final List<OctoDataColumn<T>> columns;
+class _DataCell<T> extends StatelessWidget {
+  final OctoDataColumn<T> column;
   final T row;
-  final bool zebra;
-  final VoidCallback? onTap;
-  final bool isLast;
   final OctoDataTableDensity density;
   final OctoThemeData theme;
+  final VoidCallback? onTap;
 
-  const _Row({
-    required this.columns,
+  const _DataCell({
+    required this.column,
     required this.row,
-    required this.zebra,
-    required this.onTap,
-    required this.isLast,
     required this.density,
     required this.theme,
+    required this.onTap,
   });
 
   @override
-  State<_Row<T>> createState() => _RowState<T>();
-}
-
-class _RowState<T> extends State<_Row<T>> {
-  late final WidgetStatesController _states;
-
-  @override
-  void initState() {
-    super.initState();
-    _states = WidgetStatesController();
-  }
-
-  @override
-  void dispose() {
-    _states.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final pad = _vPad(widget.density, widget.theme);
-    final body = Row(
-      children: [
-        for (final col in widget.columns)
-          _flex(
-            col,
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: widget.theme.spacing.gap.md,
-                vertical: pad,
-              ),
-              child: Align(
-                alignment: _alignment(col.alignment),
-                child: col.cell != null
-                    ? col.cell!(context, widget.row)
-                    : OctoText(
-                        col.text!(widget.row),
-                        color: widget.theme.colors.fg.defaultColor,
-                      ),
-              ),
-            ),
-          ),
-      ],
-    );
+    final pad = _vPad(density, theme);
+    final cellContent = column.cell != null
+        ? column.cell!(context, row)
+        : OctoText(
+            column.text!(row),
+            color: theme.colors.fg.defaultColor,
+          );
 
-    final bg = widget.zebra ? widget.theme.colors.neutral.subtle : const Color(0x00000000);
-
-    final decoratedBody = DecoratedBox(
-      decoration: BoxDecoration(
-        color: bg,
-        border: widget.isLast
-            ? null
-            : Border(
-                bottom: BorderSide(color: widget.theme.colors.border.muted),
-              ),
+    final padded = Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.spacing.gap.md,
+        vertical: pad,
       ),
-      child: body,
+      child: Align(alignment: _alignment(column.alignment), child: cellContent),
     );
 
-    if (widget.onTap == null) {
-      return decoratedBody;
-    }
-
+    if (onTap == null) return padded;
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => _states.update(WidgetState.hovered, true),
-      onExit: (_) => _states.update(WidgetState.hovered, false),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: widget.onTap,
-        child: ListenableBuilder(
-          listenable: _states,
-          builder: (_, __) => OctoStateLayer(
-            states: _states.value,
-            borderRadius: BorderRadius.zero,
-            child: decoratedBody,
-          ),
-        ),
+        onTap: onTap,
+        child: padded,
       ),
     );
   }
@@ -474,11 +429,4 @@ AlignmentGeometry _alignment(OctoDataColumnAlignment a) {
     case OctoDataColumnAlignment.end:
       return AlignmentDirectional.centerEnd;
   }
-}
-
-Widget _flex<T>(OctoDataColumn<T> column, Widget child) {
-  if (column.width != null) {
-    return SizedBox(width: column.width, child: child);
-  }
-  return Expanded(flex: column.flex, child: child);
 }
