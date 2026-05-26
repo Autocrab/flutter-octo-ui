@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [0.4.0-dev.0] — 2026-05-26
+
+### Added
+
+- **`OctoSegmentedControl<T>`** + `OctoSegmentedControlItem<T>` —
+  single-select group of connected buttons. Outer container uses
+  `canvas.subtle`; the selected segment lifts above the rest with a
+  `canvas.defaultColor` background and a subtle border. Items take a
+  `label` and / or an `icon`. `Tab` walks between segments, `Space`
+  activates the focused segment; the already-selected segment ignores
+  taps. `Semantics(button, selected, enabled, label)` per segment.
+- **`OctoChip`** + `OctoChipVariant` — compact interactive pill, filled
+  rather than outlined (the distinguishing trait against `OctoLabel`).
+  Five variants (`standard`/`accent`/`success`/`attention`/`danger`).
+  Optional `onPressed` makes the chip tappable; optional `onDismiss`
+  adds a trailing `OctIcons.x_16` close button with a
+  `'Remove $label'` default a11y label.
+- **`OctoDropdown<T>`** + `OctoDropdownItem<T>` — controlled single-
+  select picker built on top of `OctoMenu`. Trigger renders the
+  selected item's label plus a `chevron_down_16`; tapping opens a menu
+  with all options (selected row pre-marked); picking an option fires
+  `onChanged` and auto-closes the menu. `placeholder` shown while
+  `value` is `null`.
+- Demo grows three new sections — "Segmented control", "Chips",
+  "Dropdown" — wired to live state.
+
 ## [0.3.0-dev.0] — 2026-05-26
 
 ### Added
@@ -203,7 +229,8 @@ Foundation release. API is unstable until `0.1.0`.
 - Widgetbook playground.
 - Goldens for dynamic states (`hovered`, `pressed`, `focused`, `loading`).
 
-[Unreleased]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.3.0-dev.0...HEAD
+[Unreleased]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.4.0-dev.0...HEAD
+[0.4.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.3.0-dev.0...v0.4.0-dev.0
 [0.3.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.2.0-dev.0...v0.3.0-dev.0
 [0.2.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/compare/v0.1.0-dev.0...v0.2.0-dev.0
 [0.1.0-dev.0]: https://github.com/Autocrab/flutter-octo-ui/releases/tag/v0.1.0-dev.0

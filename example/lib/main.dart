@@ -136,6 +136,9 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
   String _priority = 'medium';
   bool _showSkeleton = false;
   String? _dialogResult;
+  String _segment = 'open';
+  String? _droppedPriority = 'medium';
+  final Set<String> _chips = {'frontend', 'flutter', 'p1'};
 
   @override
   void dispose() {
@@ -435,6 +438,74 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                       const OctoTextField(
                         placeholder: 'disabled',
                         enabled: false,
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
+                  title: 'Segmented control — single-select filter',
+                  child: Row(
+                    children: [
+                      OctoSegmentedControl<String>(
+                        value: _segment,
+                        onChanged: (v) => setState(() => _segment = v),
+                        items: const [
+                          OctoSegmentedControlItem(value: 'all', label: 'All'),
+                          OctoSegmentedControlItem(
+                              value: 'open', label: 'Open'),
+                          OctoSegmentedControlItem(
+                            value: 'closed',
+                            label: 'Closed',
+                            icon: Icon(OctIcons.check_circle_16),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: theme.spacing.gap.md),
+                      OctoText(
+                        'Viewing: $_segment',
+                        kind: OctoTextKind.bodySmall,
+                        color: theme.colors.fg.muted,
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
+                  title: 'Chips — labels, filters, recipients',
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final tag in _chips)
+                        OctoChip(
+                          label: tag,
+                          variant: tag == 'p1'
+                              ? OctoChipVariant.danger
+                              : OctoChipVariant.standard,
+                          onDismiss: () => setState(() => _chips.remove(tag)),
+                        ),
+                      const OctoChip(
+                          label: 'preview', variant: OctoChipVariant.accent),
+                    ],
+                  ),
+                ),
+                _Section(
+                  title: 'Dropdown — single-select picker',
+                  child: Row(
+                    children: [
+                      OctoDropdown<String>(
+                        value: _droppedPriority,
+                        onChanged: (v) => setState(() => _droppedPriority = v),
+                        items: const [
+                          OctoDropdownItem(value: 'low', label: 'Low'),
+                          OctoDropdownItem(value: 'medium', label: 'Medium'),
+                          OctoDropdownItem(value: 'high', label: 'High'),
+                        ],
+                      ),
+                      SizedBox(width: theme.spacing.gap.md),
+                      OctoText(
+                        'Priority: ${_droppedPriority ?? "—"}',
+                        kind: OctoTextKind.bodySmall,
+                        color: theme.colors.fg.muted,
                       ),
                     ],
                   ),
