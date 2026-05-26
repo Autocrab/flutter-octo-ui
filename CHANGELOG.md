@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- **`OctoCollapsible`** — disclosure section (Primer "Accordion item").
+  Supports both *uncontrolled* (`initiallyExpanded`) and *controlled*
+  (`expanded` + `onExpansionChanged`) modes. Header is a focusable
+  button: Space / Enter toggle expansion via `FocusableActionDetector`,
+  state layer for hover / pressed, focus ring on keyboard focus.
+  `Semantics(button: true, expanded: ...)` exposes the state to screen
+  readers. The body height + chevron rotation animate over
+  `animationDuration`; `MediaQuery.disableAnimationsOf` (ADR-0008) drops
+  the duration to zero so transitions snap under motion-reduce.
 - **`OctoProgressBar`** + `OctoProgressBarVariant` + `OctoProgressBarSize`
   — linear progress indicator. `value: double?` drives determinate (0..1)
   vs. indeterminate (`null`) modes. Indeterminate uses an
@@ -29,9 +38,10 @@ All notable changes to this project will be documented in this file. The format 
 - **`OctoDropdown<T>`** accepts an optional external `OctoMenuController`,
   letting callers (e.g. golden scenarios) open / close the popover
   programmatically without exposing internal state.
-- Golden coverage: `octo_misc/dividers`, `octo_misc/progress_bars`
-  (light + dark) and an `octo_pickers/dropdown_open` scenario that
-  snapshots the menu in its open state.
+- Golden coverage: `octo_misc/dividers`, `octo_misc/progress_bars`,
+  `octo_misc/collapsibles` (light + dark) and an
+  `octo_pickers/dropdown_open` scenario that snapshots the menu in its
+  open state.
 - Demo: a new "Dividers" section in the kitchen-sink showing subtle /
   muted / strong horizontals plus a vertical inline strip.
 

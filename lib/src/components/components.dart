@@ -5,6 +5,7 @@ export 'breadcrumbs/octo_breadcrumbs.dart';
 export 'button/octo_button.dart';
 export 'checkbox/octo_checkbox.dart';
 export 'chip/octo_chip.dart';
+export 'collapsible/octo_collapsible.dart';
 export 'command_palette/octo_command_palette.dart';
 export 'command_palette/octo_command_palette_controller.dart';
 export 'counter_label/octo_counter_label.dart';

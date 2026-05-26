@@ -511,6 +511,36 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                   ),
                 ),
                 _Section(
+                  title: 'Collapsible — accordion sections',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      OctoCollapsible(
+                        title: 'Repository details',
+                        initiallyExpanded: true,
+                        child: OctoText(
+                          'Primer-inspired Flutter UI kit. Foundation '
+                          'tokens, themed Material adapter, and a growing '
+                          'set of components.',
+                          kind: OctoTextKind.bodySmall,
+                          color: theme.colors.fg.muted,
+                        ),
+                      ),
+                      SizedBox(height: theme.spacing.gap.sm),
+                      OctoCollapsible(
+                        title: 'Roadmap',
+                        child: OctoText(
+                          'Toast / SnackBar, Tabs, Pagination, Table — see '
+                          'CHANGELOG for the running list.',
+                          kind: OctoTextKind.bodySmall,
+                          color: theme.colors.fg.muted,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
                   title: 'Progress bars — determinate + indeterminate',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -96,6 +96,34 @@ void main() {
         ),
       ),
       MatrixScenario(
+        'collapsibles',
+        builder: () => const _Sampler(
+          child: SizedBox(
+            width: 320,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                OctoCollapsible(
+                  title: 'Collapsed section',
+                  child: Text(
+                    'Hidden body — only the chevron and title show.',
+                  ),
+                ),
+                SizedBox(height: 12),
+                OctoCollapsible(
+                  title: 'Expanded section',
+                  initiallyExpanded: true,
+                  child: Text(
+                    'Body content is visible while the chevron points down.',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      MatrixScenario(
         'progress_bars',
         builder: () => const _Sampler(
           child: SizedBox(
