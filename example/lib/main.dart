@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey;
+// Octicons are re-exported by package:octo_ui/octo_ui.dart as `OctIcons`.
 import 'package:octo_ui/octo_ui.dart';
 
 void main() => runApp(const KitchenSinkApp());
@@ -30,37 +31,37 @@ class _KitchenSinkAppState extends State<KitchenSinkApp> {
   List<OctoActionListItem> _paletteItems() => [
         OctoActionListItem(
           label: _dark ? 'Switch to light theme' : 'Switch to dark theme',
-          leading: Icon(
-              _dark ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
+          leading: Icon(_dark ? OctIcons.sun_16 : OctIcons.moon_16),
           onPressed: _toggleDark,
         ),
         OctoActionListItem(
           label: _highContrast
               ? 'Switch to standard contrast'
               : 'Switch to high contrast',
-          leading:
-              Icon(_highContrast ? Icons.contrast : Icons.contrast_outlined),
+          leading: Icon(_highContrast
+              ? OctIcons.accessibility_16
+              : OctIcons.accessibility_inset_16),
           onPressed: _toggleHighContrast,
         ),
         OctoActionListItem(
           label: 'New issue',
           description: 'Open the issue composer',
-          leading: const Icon(Icons.add),
+          leading: const Icon(OctIcons.plus_16),
           onPressed: () {},
         ),
         OctoActionListItem(
           label: 'Open pull requests',
-          leading: const Icon(Icons.merge_type),
+          leading: const Icon(OctIcons.git_pull_request_16),
           onPressed: () {},
         ),
         OctoActionListItem(
           label: 'Repository settings',
-          leading: const Icon(Icons.settings_outlined),
+          leading: const Icon(OctIcons.gear_16),
           onPressed: () {},
         ),
         OctoActionListItem(
           label: 'Delete repository',
-          leading: const Icon(Icons.delete_outline),
+          leading: const Icon(OctIcons.trash_16),
           variant: OctoActionListItemVariant.danger,
           onPressed: () {},
         ),
@@ -156,7 +157,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
           OctoTooltip(
             message: 'Open command palette (⌘K)',
             child: OctoIconButton(
-              icon: Icons.search,
+              icon: OctIcons.search_16,
               onPressed: widget.onOpenPalette,
               variant: OctoButtonVariant.invisible,
               semanticLabel: 'Open command palette',
@@ -165,8 +166,8 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
           SizedBox(width: theme.spacing.gap.sm),
           OctoIconButton(
             icon: widget.isHighContrast
-                ? Icons.contrast
-                : Icons.contrast_outlined,
+                ? OctIcons.accessibility_16
+                : OctIcons.accessibility_inset_16,
             onPressed: widget.onToggleHighContrast,
             variant: OctoButtonVariant.invisible,
             semanticLabel: widget.isHighContrast
@@ -175,9 +176,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
           ),
           SizedBox(width: theme.spacing.gap.sm),
           OctoIconButton(
-            icon: widget.isDark
-                ? Icons.light_mode_outlined
-                : Icons.dark_mode_outlined,
+            icon: widget.isDark ? OctIcons.sun_16 : OctIcons.moon_16,
             onPressed: widget.onToggleTheme,
             variant: OctoButtonVariant.invisible,
             semanticLabel: widget.isDark
@@ -205,21 +204,21 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                       items: const [
                         OctoUnderlineNavItem(
                           label: 'Code',
-                          icon: Icon(Icons.code),
+                          icon: Icon(OctIcons.code_16),
                         ),
                         OctoUnderlineNavItem(
                           label: 'Issues',
-                          icon: Icon(Icons.bug_report_outlined),
+                          icon: Icon(OctIcons.bug_16),
                           trailing: OctoCounterLabel(12),
                         ),
                         OctoUnderlineNavItem(
                           label: 'Pull requests',
-                          icon: Icon(Icons.merge_type),
+                          icon: Icon(OctIcons.git_pull_request_16),
                           trailing: OctoCounterLabel(3),
                         ),
                         OctoUnderlineNavItem(
                           label: 'Settings',
-                          icon: Icon(Icons.settings_outlined),
+                          icon: Icon(OctIcons.gear_16),
                         ),
                       ],
                     ),
@@ -303,24 +302,24 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                     runSpacing: 12,
                     children: [
                       OctoIconButton(
-                        icon: Icons.star_outline,
+                        icon: OctIcons.star_16,
                         onPressed: () {},
                         semanticLabel: 'Star',
                       ),
                       OctoIconButton(
-                        icon: Icons.favorite_outline,
+                        icon: OctIcons.heart_16,
                         onPressed: () {},
                         variant: OctoButtonVariant.primary,
                         semanticLabel: 'Favorite',
                       ),
                       OctoIconButton(
-                        icon: Icons.more_horiz,
+                        icon: OctIcons.kebab_horizontal_16,
                         onPressed: () {},
                         variant: OctoButtonVariant.invisible,
                         semanticLabel: 'More',
                       ),
                       const OctoIconButton(
-                        icon: Icons.lock_outline,
+                        icon: OctIcons.lock_16,
                         onPressed: null,
                         semanticLabel: 'Locked',
                       ),
@@ -334,24 +333,24 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                     children: const [
                       OctoFlash(
                           message: 'A new release is available.',
-                          icon: Icons.info_outline),
+                          icon: OctIcons.info_16),
                       SizedBox(height: 12),
                       OctoFlash(
                         message: 'Changes saved successfully.',
                         variant: OctoFlashVariant.success,
-                        icon: Icons.check_circle_outline,
+                        icon: OctIcons.check_circle_16,
                       ),
                       SizedBox(height: 12),
                       OctoFlash(
                         message: 'Review required before merge.',
                         variant: OctoFlashVariant.attention,
-                        icon: Icons.error_outline,
+                        icon: OctIcons.alert_16,
                       ),
                       SizedBox(height: 12),
                       OctoFlash(
                         message: 'Build failed — see the logs for details.',
                         variant: OctoFlashVariant.danger,
-                        icon: Icons.cancel_outlined,
+                        icon: OctIcons.x_circle_16,
                       ),
                     ],
                   ),
@@ -399,7 +398,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                       OctoTooltip(
                         message: 'Watch this repository',
                         child: OctoIconButton(
-                          icon: Icons.visibility_outlined,
+                          icon: OctIcons.eye_16,
                           onPressed: () => _record('Watch tapped'),
                           semanticLabel: 'Watch',
                         ),
@@ -407,7 +406,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                       OctoTooltip(
                         message: 'Pinned for later',
                         child: OctoIconButton(
-                          icon: Icons.push_pin_outlined,
+                          icon: OctIcons.pin_16,
                           onPressed: () => _record('Pin tapped'),
                           variant: OctoButtonVariant.invisible,
                           semanticLabel: 'Pin',
@@ -426,22 +425,22 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                         items: [
                           OctoActionListItem(
                             label: 'New issue',
-                            leading: const Icon(Icons.add),
+                            leading: const Icon(OctIcons.plus_16),
                             onPressed: () => _record('New issue'),
                           ),
                           OctoActionListItem(
                             label: 'New pull request',
-                            leading: const Icon(Icons.merge_type),
+                            leading: const Icon(OctIcons.git_pull_request_16),
                             onPressed: () => _record('New PR'),
                           ),
                           OctoActionListItem(
                             label: 'Settings',
-                            leading: const Icon(Icons.settings_outlined),
+                            leading: const Icon(OctIcons.gear_16),
                             onPressed: () => _record('Settings'),
                           ),
                           OctoActionListItem(
                             label: 'Delete repository',
-                            leading: const Icon(Icons.delete_outline),
+                            leading: const Icon(OctIcons.trash_16),
                             variant: OctoActionListItemVariant.danger,
                             onPressed: () => _record('Delete'),
                           ),
@@ -449,7 +448,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                         child: OctoButton.label(
                           'More actions',
                           onPressed: _menuController.toggle,
-                          trailingIcon: const Icon(Icons.expand_more),
+                          trailingIcon: const Icon(OctIcons.chevron_down_16),
                         ),
                       ),
                       SizedBox(width: theme.spacing.gap.md),
@@ -473,26 +472,26 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                       items: [
                         OctoActionListItem(
                           label: 'Code',
-                          leading: const Icon(Icons.code),
+                          leading: const Icon(OctIcons.code_16),
                           trailing: const OctoCounterLabel(42),
                           onPressed: () => _record('Code'),
                           selected: true,
                         ),
                         OctoActionListItem(
                           label: 'Issues',
-                          leading: const Icon(Icons.bug_report_outlined),
+                          leading: const Icon(OctIcons.bug_16),
                           trailing: const OctoCounterLabel(7),
                           onPressed: () => _record('Issues'),
                         ),
                         OctoActionListItem(
                           label: 'Pull requests',
-                          leading: const Icon(Icons.merge_type),
+                          leading: const Icon(OctIcons.git_pull_request_16),
                           trailing: const OctoCounterLabel(3),
                           onPressed: () => _record('PRs'),
                         ),
                         OctoActionListItem(
                           label: 'Settings',
-                          leading: const Icon(Icons.settings_outlined),
+                          leading: const Icon(OctIcons.gear_16),
                           description: 'Members, integrations, secrets',
                           onPressed: () => _record('Settings'),
                         ),
@@ -507,7 +506,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                     children: [
                       OctoButton.label(
                         'Open command palette',
-                        leadingIcon: const Icon(Icons.search),
+                        leadingIcon: const Icon(OctIcons.search_16),
                         onPressed: widget.onOpenPalette,
                         variant: OctoButtonVariant.primary,
                       ),

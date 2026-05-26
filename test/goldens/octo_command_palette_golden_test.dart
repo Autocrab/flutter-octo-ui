@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 import 'package:golden_matrix/golden_matrix.dart';
 import 'package:octo_ui/octo_ui.dart';
@@ -50,23 +49,23 @@ class _PaletteStageState extends State<_PaletteStage> {
         items: const [
           OctoActionListItem(
             label: 'New issue',
-            leading: Icon(Icons.add),
+            leading: Icon(OctIcons.plus_16),
             onPressed: _noop,
           ),
           OctoActionListItem(
             label: 'New pull request',
-            leading: Icon(Icons.merge_type),
+            leading: Icon(OctIcons.git_pull_request_16),
             onPressed: _noop,
           ),
           OctoActionListItem(
             label: 'Open settings',
-            leading: Icon(Icons.settings_outlined),
+            leading: Icon(OctIcons.gear_16),
             description: 'Repository preferences and integrations',
             onPressed: _noop,
           ),
           OctoActionListItem(
             label: 'Toggle dark mode',
-            leading: Icon(Icons.dark_mode_outlined),
+            leading: Icon(OctIcons.moon_16),
             onPressed: _noop,
           ),
         ],

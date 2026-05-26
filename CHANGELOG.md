@@ -6,6 +6,22 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- **Octicons integration** — `flutter_octicons ^1.71.0` is now a direct
+  dependency, and `package:octo_ui/octo_ui.dart` re-exports the
+  `OctIcons` class so apps can write `Icon(OctIcons.code_16)` without an
+  extra import. Sample / golden / demo code throughout the package is
+  re-imaged with Octicons; no Material `Icons.*` glyphs remain in the
+  visual layer.
+- `OctoFlash` finally ships its dismiss button. Pass `onDismiss` to
+  render a trailing close affordance (Octicons `x_16`); the optional
+  `dismissSemanticLabel` (default `'Dismiss'`) overrides the screen
+  reader announcement. The "deferred until octo_icons" stop-gap is
+  retired.
+- `NOTICE` file at the repository root carries the MIT attribution for
+  Octicons (© GitHub, Inc.) and the BSD-3-Clause attribution for the
+  `flutter_octicons` Flutter wrapper, plus the standard "not affiliated
+  with GitHub" disclaimer.
+
 - `OctoUnderlineNav` + `OctoUnderlineNavItem` — horizontal section-tab
   strip with an underline indicator under the selected tab (Primer
   "UnderlineNav"). Items take optional `icon` and `trailing` widgets

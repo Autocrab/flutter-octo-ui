@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 import 'package:golden_matrix/golden_matrix.dart';
 import 'package:octo_ui/octo_ui.dart';
@@ -18,25 +17,25 @@ void main() {
             items: [
               OctoUnderlineNavItem(
                 label: 'Code',
-                icon: Icon(Icons.code),
+                icon: Icon(OctIcons.code_16),
               ),
               OctoUnderlineNavItem(
                 label: 'Issues',
-                icon: Icon(Icons.bug_report_outlined),
+                icon: Icon(OctIcons.bug_16),
                 trailing: OctoCounterLabel(12),
               ),
               OctoUnderlineNavItem(
                 label: 'Pull requests',
-                icon: Icon(Icons.merge_type),
+                icon: Icon(OctIcons.git_pull_request_16),
                 trailing: OctoCounterLabel(3),
               ),
               OctoUnderlineNavItem(
                 label: 'Actions',
-                icon: Icon(Icons.play_arrow_outlined),
+                icon: Icon(OctIcons.play_16),
               ),
               OctoUnderlineNavItem(
                 label: 'Settings',
-                icon: Icon(Icons.settings_outlined),
+                icon: Icon(OctIcons.gear_16),
               ),
             ],
           ),

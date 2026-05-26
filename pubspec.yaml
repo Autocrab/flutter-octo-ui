@@ -13,6 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_octicons: ^1.71.0
   meta: ^1.15.0
 
 dev_dependencies:

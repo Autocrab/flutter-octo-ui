@@ -1,0 +1,58 @@
+octo_ui
+Copyright (c) 2026 Autocrab and octo_ui contributors
+
+This product includes software developed by third parties under the
+licenses below. Each redistributed work retains its original copyright
+notice and license text — full license bodies live in their respective
+package directories under `.dart_tool/` (after `flutter pub get`).
+
+------------------------------------------------------------------------
+Octicons
+------------------------------------------------------------------------
+
+Octicons are designed by GitHub, Inc. and licensed under the MIT
+License. The icon glyphs reach this package through the
+`flutter_octicons` Flutter package, which redistributes the upstream
+Octicons SVGs as a Flutter `IconData` font.
+
+  Copyright (c) GitHub, Inc.
+  https://github.com/primer/octicons
+
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+
+------------------------------------------------------------------------
+flutter_octicons
+------------------------------------------------------------------------
+
+The Flutter wrapper that ships the Octicons font and `IconData`
+constants used by this package is `flutter_octicons`, released under
+the BSD-3-Clause license. See the package on pub.dev for the full
+license text:
+
+  https://pub.dev/packages/flutter_octicons/license
+
+------------------------------------------------------------------------
+Disclaimer
+------------------------------------------------------------------------
+
+`octo_ui` is not affiliated with, endorsed by, or sponsored by GitHub,
+Inc. Inclusion of Octicons reflects an aesthetic compatibility, not an
+organisational relationship.

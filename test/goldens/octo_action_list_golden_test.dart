@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 import 'package:golden_matrix/golden_matrix.dart';
 import 'package:octo_ui/octo_ui.dart';
@@ -16,27 +15,27 @@ void main() {
             items: [
               OctoActionListItem(
                 label: 'New issue',
-                leading: Icon(Icons.add),
+                leading: Icon(OctIcons.plus_16),
                 onPressed: _noop,
               ),
               OctoActionListItem(
                 label: 'New pull request',
-                leading: Icon(Icons.merge_type),
+                leading: Icon(OctIcons.git_pull_request_16),
                 onPressed: _noop,
               ),
               OctoActionListItem(
                 label: 'Settings',
-                leading: Icon(Icons.settings_outlined),
+                leading: Icon(OctIcons.gear_16),
                 description: 'Repository preferences and integrations',
                 onPressed: _noop,
               ),
               OctoActionListItem(
                 label: 'Archive',
-                leading: Icon(Icons.archive_outlined),
+                leading: Icon(OctIcons.archive_16),
               ),
               OctoActionListItem(
                 label: 'Delete repository',
-                leading: Icon(Icons.delete_outline),
+                leading: Icon(OctIcons.trash_16),
                 variant: OctoActionListItemVariant.danger,
                 onPressed: _noop,
               ),

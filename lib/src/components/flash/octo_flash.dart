@@ -1,5 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_octicons/flutter_octicons.dart' show OctIcons;
 
+import 'package:octo_ui/src/components/button/octo_button.dart';
+import 'package:octo_ui/src/components/icon_button/octo_icon_button.dart';
 import 'package:octo_ui/src/foundation/octo_icon.dart';
 import 'package:octo_ui/src/foundation/octo_text.dart';
 import 'package:octo_ui/src/theme/octo_theme.dart';
@@ -24,10 +27,11 @@ enum OctoFlashVariant {
   danger,
 }
 
-/// 0.1.0 ships Flash WITHOUT a dismiss button. The close glyph would
-/// require Material's `Icons.close`, which the design system explicitly
-/// forbids (see ADR review, plan §24). Dismiss lands in 0.2 once
-/// `octo_icons` provides a native close glyph.
+/// Themed status banner.
+///
+/// When [onDismiss] is set, a trailing close button (Octicons `x_16`) is
+/// rendered after the message; tapping it invokes the callback. The host
+/// is expected to remove the banner from the tree in response.
 class OctoFlash extends StatelessWidget {
   /// Body text shown in the banner.
   final String message;
@@ -38,12 +42,20 @@ class OctoFlash extends StatelessWidget {
   /// Optional leading glyph. Decorative — its semantics are excluded.
   final IconData? icon;
 
+  /// Tap handler for the dismiss button. When `null`, no dismiss is shown.
+  final VoidCallback? onDismiss;
+
+  /// Accessibility label for the dismiss button. Defaults to `'Dismiss'`.
+  final String dismissSemanticLabel;
+
   /// Creates a status banner.
   const OctoFlash({
     super.key,
     required this.message,
     this.variant = OctoFlashVariant.info,
     this.icon,
+    this.onDismiss,
+    this.dismissSemanticLabel = 'Dismiss',
   });
 
   ({Color background, Color border, Color foreground}) _resolveColors(OctoThemeData theme) {
@@ -108,6 +120,16 @@ class OctoFlash extends StatelessWidget {
                 color: colors.foreground,
               ),
             ),
+            if (onDismiss != null) ...[
+              SizedBox(width: theme.spacing.gap.sm),
+              OctoIconButton(
+                icon: OctIcons.x_16,
+                onPressed: onDismiss,
+                variant: OctoButtonVariant.invisible,
+                size: OctoButtonSize.small,
+                semanticLabel: dismissSemanticLabel,
+              ),
+            ],
           ],
         ),
       ),
