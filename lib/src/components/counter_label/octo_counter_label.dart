@@ -82,15 +82,26 @@ class OctoCounterLabel extends StatelessWidget {
       child: Semantics(
         label: semanticLabel ?? text,
         excludeSemantics: semanticLabel != null,
-        child: Container(
-          constraints: const BoxConstraints(minWidth: 20, minHeight: 18),
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: theme.spacing.gap.sm),
+        // Avoid `Container.alignment` — it wraps the child in an `Align`,
+        // which expands to its parent's loose constraints and turns the
+        // pill into a full-height bar when the surrounding Row gives
+        // unbounded cross-axis space (e.g. inside OctoUnderlineNav).
+        // `DecoratedBox + Padding` hugs the text on both axes.
+        child: DecoratedBox(
           decoration: BoxDecoration(
             color: colors.background,
             borderRadius: BorderRadius.all(Radius.circular(theme.radii.full)),
           ),
-          child: OctoText(text, kind: OctoTextKind.labelSmall, color: colors.foreground),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            // Override labelSmall's inherited `height: 1.5` so the line
+            // box hugs the glyphs and the pill stays proportional.
+            child: OctoText.styled(
+              text,
+              style: theme.typography.labelSmall.copyWith(height: 1),
+              color: colors.foreground,
+            ),
+          ),
         ),
       ),
     );

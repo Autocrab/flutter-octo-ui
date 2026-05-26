@@ -43,7 +43,9 @@ void main() {
         ),
       ),
     ],
-    axes: MatrixAxes(themes: octoThemes),
+    // tabletLandscape (1024 × 768 logical) gives the 5-tab strip room to
+    // breathe without horizontal overflow that phoneSmall would force.
+    axes: MatrixAxes(themes: octoThemes, devices: [MatrixDevice.tabletLandscape]),
     wrapApp: wrapInOctoTheme,
     reportFormats: octoReportFormats,
     tolerance: octoGoldenTolerance,

@@ -21,8 +21,13 @@ void main() {
     testWidgets('standard variant uses neutral.muted background', (tester) async {
       await _pump(tester, const OctoCounterLabel(3));
       final theme = OctoThemeData.light();
-      final container = tester.widget<Container>(find.byType(Container));
-      final dec = container.decoration! as BoxDecoration;
+      final decorated = tester.widget<DecoratedBox>(
+        find.descendant(
+          of: find.byType(OctoCounterLabel),
+          matching: find.byType(DecoratedBox),
+        ),
+      );
+      final dec = decorated.decoration as BoxDecoration;
       expect(dec.color, theme.colors.neutral.muted);
     });
 
@@ -32,8 +37,13 @@ void main() {
         const OctoCounterLabel(3, variant: OctoCounterLabelVariant.primary),
       );
       final theme = OctoThemeData.light();
-      final container = tester.widget<Container>(find.byType(Container));
-      final dec = container.decoration! as BoxDecoration;
+      final decorated = tester.widget<DecoratedBox>(
+        find.descendant(
+          of: find.byType(OctoCounterLabel),
+          matching: find.byType(DecoratedBox),
+        ),
+      );
+      final dec = decorated.decoration as BoxDecoration;
       expect(dec.color, theme.colors.accent.muted);
       final text = tester.widget<Text>(find.byType(Text));
       expect(text.style!.color, theme.colors.accent.fg);
