@@ -55,12 +55,14 @@ jobs:
       - name: Test — widget / unit / goldens
         run: flutter test --coverage
 
+      - name: Install lcov
+        run: brew install lcov
+
       - name: Coverage gate (>= 90%)
         # The package's product code (lib/) must stay at or above 90 %
-        # line coverage. macos-latest ships lcov by default, so no
-        # extra setup step is required. The percentage is parsed out of
-        # `lcov --summary` and compared against the gate via awk so a
-        # 89.9 → 89 truncation doesn't silently slip past.
+        # line coverage. The percentage is parsed out of `lcov --summary`
+        # and compared against the gate via awk so a 89.9 → 89 truncation
+        # doesn't silently slip past.
         run: |
           set -euo pipefail
           if [ ! -f coverage/lcov.info ]; then
