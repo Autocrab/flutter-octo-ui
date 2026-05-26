@@ -53,7 +53,38 @@ jobs:
         run: flutter analyze
 
       - name: Test — widget / unit / goldens
-        run: flutter test
+        run: flutter test --coverage
+
+      - name: Coverage gate (>= 90%)
+        # The package's product code (lib/) must stay at or above 90 %
+        # line coverage. macos-latest ships lcov by default, so no
+        # extra setup step is required. The percentage is parsed out of
+        # `lcov --summary` and compared against the gate via awk so a
+        # 89.9 → 89 truncation doesn't silently slip past.
+        run: |
+          set -euo pipefail
+          if [ ! -f coverage/lcov.info ]; then
+            echo "::error::coverage/lcov.info missing — did 'flutter test --coverage' run?"
+            exit 1
+          fi
+          PCT=$(lcov --summary coverage/lcov.info 2>&1 \
+            | awk '/lines\.+:/ { gsub("%",""); print $2; exit }')
+          echo "Line coverage: ${PCT}%"
+          awk -v cov="$PCT" -v gate=90 'BEGIN {
+            if (cov+0 < gate) {
+              printf "::error::Coverage %.2f%% is below the %d%% gate\n", cov, gate;
+              exit 1;
+            }
+          }'
+
+      - name: Upload coverage to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage/lcov.info
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Test — example smoke
         working-directory: example
