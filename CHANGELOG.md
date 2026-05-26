@@ -12,6 +12,18 @@ All notable changes to this project will be documented in this file. The format 
   rules as the inline variant (focus + `FocusHighlightMode.traditional`).
   Requires an enclosing `Overlay` (provided by `MaterialApp` /
   `WidgetsApp`). See ADR-0006.
+- `OctoTooltip` — thin wrapper over Material's `Tooltip`. Visuals (padding,
+  radius, colours, typography) come from the `TooltipThemeData` installed
+  by `toMaterialTheme()`; behaviour (hover-after-delay, long-press, smart
+  edge-flip, a11y announcement) is delegated.
+- `OctoActionList` + `OctoActionListItem` — vertical list of action rows,
+  used standalone or as the body of an overlay menu / palette. Each row
+  has its own hover / pressed / selected / disabled state machine on
+  Flutter's built-in `WidgetState`. `danger` variant tints label and icon
+  via `danger.fg`. Default constructor takes an eager
+  `List<OctoActionListItem>`; `OctoActionList.builder` is the lazy variant
+  for long lists (filter dropdowns, command palette). Keyboard
+  arrow-traversal deferred to a later milestone.
 - **Dynamic-state golden coverage** — `hovered`, `pressed`, `focused`
   scenarios for `OctoButton` and `OctoIconButton`. A new
   `@visibleForTesting` `debugStates: Set<WidgetState>?` parameter on both
