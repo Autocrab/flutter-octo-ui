@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- **`OctoDataTable<T>`** + `OctoDataColumn<T>` + `OctoDataColumnAlignment`
+  + `OctoSortDirection` + `OctoDataTableDensity` — tabular presenter
+  generic over the row type. Columns expose either a `text: T → String`
+  accessor or a `cell: (BuildContext, T) → Widget` builder (cell wins
+  when both are present); columns can opt into `sortable` to render a
+  tappable header that cycles asc → desc → none and reports via
+  `onSortChanged`. The table is presentation only — the parent owns the
+  sorted list. Optional `onRowTap`, `zebra` striping, `density`
+  (comfortable / compact), and an `emptyMessage` empty state. The
+  rounded border + per-row dividers come from `border.muted`; the
+  header sits on `canvas.subtle`.
+- Golden coverage: `octo_data_table/{default,sorted_desc,compact,empty}`
+  (light + dark) — the scenario file uses `MatrixDevice.tabletLandscape`
+  so the wide cells render at their native size instead of being crushed
+  into the phoneSmall viewport.
+- Demo: a new "Data table" section in the kitchen sink wired to a
+  controlled sort state.
+
 ## [0.6.0-dev.0] — 2026-05-26
 
 ### Added

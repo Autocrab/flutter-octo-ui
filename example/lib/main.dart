@@ -144,6 +144,36 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
   int _tabIndex = 0;
 
   int _sideNavIndex = 1;
+
+  int? _sortColumn;
+  OctoSortDirection _sortDirection = OctoSortDirection.none;
+  List<_DemoPr> _prs = const [
+    _DemoPr(42, 'Add tabs component', 'anna', 5, OctoStateLabelVariant.open),
+    _DemoPr(43, 'Fix timeline rail', 'bob', 2, OctoStateLabelVariant.merged),
+    _DemoPr(44, 'Cut 0.6 release', 'cara', 0, OctoStateLabelVariant.draft),
+    _DemoPr(45, 'Switch chip dismiss', 'dee', 8, OctoStateLabelVariant.closed),
+  ];
+
+  void _sortPrs(int column, OctoSortDirection direction) {
+    setState(() {
+      _sortColumn = direction == OctoSortDirection.none ? null : column;
+      _sortDirection = direction;
+      if (direction == OctoSortDirection.none) return;
+      final sorted = [..._prs];
+      int cmp(_DemoPr a, _DemoPr b) {
+        final byColumn = switch (column) {
+          1 => a.title.compareTo(b.title),
+          4 => a.comments.compareTo(b.comments),
+          _ => 0,
+        };
+        return direction == OctoSortDirection.asc ? byColumn : -byColumn;
+      }
+
+      sorted.sort(cmp);
+      _prs = sorted;
+    });
+  }
+
   final Set<String> _chips = {'frontend', 'flutter', 'p1'};
 
   @override
@@ -590,6 +620,47 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                           variant: OctoToastVariant.danger,
                           dismissible: true,
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
+                  title: 'Data table — sortable tabular data',
+                  child: OctoDataTable<_DemoPr>(
+                    sortColumnIndex: _sortColumn,
+                    sortDirection: _sortDirection,
+                    onSortChanged: _sortPrs,
+                    rows: _prs,
+                    columns: [
+                      OctoDataColumn<_DemoPr>(
+                        label: '#',
+                        text: (r) => '#${r.number}',
+                        width: 56,
+                      ),
+                      OctoDataColumn<_DemoPr>(
+                        label: 'Title',
+                        text: (r) => r.title,
+                        sortable: true,
+                      ),
+                      OctoDataColumn<_DemoPr>(
+                        label: 'Status',
+                        width: 110,
+                        cell: (_, r) => OctoStateLabel(
+                          label: r.status.name,
+                          variant: r.status,
+                          emphasis: OctoStateLabelEmphasis.low,
+                        ),
+                      ),
+                      OctoDataColumn<_DemoPr>(
+                        label: 'Author',
+                        text: (r) => r.author,
+                      ),
+                      OctoDataColumn<_DemoPr>(
+                        label: 'Comments',
+                        text: (r) => '${r.comments}',
+                        alignment: OctoDataColumnAlignment.end,
+                        sortable: true,
+                        width: 110,
                       ),
                     ],
                   ),
@@ -1252,4 +1323,19 @@ class _Section extends StatelessWidget {
       ),
     );
   }
+}
+
+class _DemoPr {
+  final int number;
+  final String title;
+  final String author;
+  final int comments;
+  final OctoStateLabelVariant status;
+  const _DemoPr(
+    this.number,
+    this.title,
+    this.author,
+    this.comments,
+    this.status,
+  );
 }

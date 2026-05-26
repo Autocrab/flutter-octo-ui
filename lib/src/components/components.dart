@@ -9,6 +9,8 @@ export 'collapsible/octo_collapsible.dart';
 export 'command_palette/octo_command_palette.dart';
 export 'command_palette/octo_command_palette_controller.dart';
 export 'counter_label/octo_counter_label.dart';
+export 'data_table/octo_data_column.dart';
+export 'data_table/octo_data_table.dart';
 export 'dialog/octo_dialog.dart';
 export 'divider/octo_divider.dart';
 export 'dropdown/octo_dropdown.dart';
