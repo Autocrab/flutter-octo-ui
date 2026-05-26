@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- `OctoUnderlineNav` + `OctoUnderlineNavItem` — horizontal section-tab
+  strip with an underline indicator under the selected tab (Primer
+  "UnderlineNav"). Items take optional `icon` and `trailing` widgets
+  (counter labels fit there naturally). Controlled API: pass
+  `selectedIndex` + `onChanged`. Selected label uses
+  `OctoTextKind.bodyEmphasis`; each tab is independently focusable and
+  carries `Semantics(button: true, selected: ...)`. The component itself
+  does not handle horizontal overflow — wrap in a `SingleChildScrollView`
+  when the tab strip is wider than the available room.
+
 ## [0.2.0-dev.0] — 2026-05-26
 
 ### Added

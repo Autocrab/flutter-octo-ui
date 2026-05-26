@@ -11,3 +11,5 @@ export 'menu/octo_menu.dart';
 export 'menu/octo_menu_controller.dart';
 export 'text_field/octo_text_field.dart';
 export 'tooltip/octo_tooltip.dart';
+export 'underline_nav/octo_underline_nav.dart';
+export 'underline_nav/octo_underline_nav_item.dart';

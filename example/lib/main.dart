@@ -129,6 +129,7 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
   final OctoMenuController _menuController = OctoMenuController();
   bool _showError = false;
   String _lastAction = '';
+  int _navIndex = 0;
 
   @override
   void dispose() {
@@ -194,6 +195,36 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                _Section(
+                  title: 'Underline nav — section tabs',
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: OctoUnderlineNav(
+                      selectedIndex: _navIndex,
+                      onChanged: (i) => setState(() => _navIndex = i),
+                      items: const [
+                        OctoUnderlineNavItem(
+                          label: 'Code',
+                          icon: Icon(Icons.code),
+                        ),
+                        OctoUnderlineNavItem(
+                          label: 'Issues',
+                          icon: Icon(Icons.bug_report_outlined),
+                          trailing: OctoCounterLabel(12),
+                        ),
+                        OctoUnderlineNavItem(
+                          label: 'Pull requests',
+                          icon: Icon(Icons.merge_type),
+                          trailing: OctoCounterLabel(3),
+                        ),
+                        OctoUnderlineNavItem(
+                          label: 'Settings',
+                          icon: Icon(Icons.settings_outlined),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 _Section(
                   title: 'Labels',
                   child: Wrap(
