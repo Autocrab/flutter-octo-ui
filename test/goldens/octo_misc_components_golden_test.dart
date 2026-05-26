@@ -159,6 +159,65 @@ void main() {
         ),
       ),
       MatrixScenario(
+        'state_labels',
+        builder: () => const _Sampler(
+          child: SizedBox(
+            width: 280,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('High emphasis'),
+                SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    OctoStateLabel(label: 'Open', variant: OctoStateLabelVariant.open),
+                    OctoStateLabel(label: 'Closed', variant: OctoStateLabelVariant.closed),
+                    OctoStateLabel(label: 'Merged', variant: OctoStateLabelVariant.merged),
+                    OctoStateLabel(label: 'Draft', variant: OctoStateLabelVariant.draft),
+                    OctoStateLabel(
+                      label: 'Stale',
+                      variant: OctoStateLabelVariant.attention,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Text('Low emphasis'),
+                SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    OctoStateLabel(
+                      label: 'Open',
+                      variant: OctoStateLabelVariant.open,
+                      emphasis: OctoStateLabelEmphasis.low,
+                    ),
+                    OctoStateLabel(
+                      label: 'Closed',
+                      variant: OctoStateLabelVariant.closed,
+                      emphasis: OctoStateLabelEmphasis.low,
+                    ),
+                    OctoStateLabel(
+                      label: 'Merged',
+                      variant: OctoStateLabelVariant.merged,
+                      emphasis: OctoStateLabelEmphasis.low,
+                    ),
+                    OctoStateLabel(
+                      label: 'Draft',
+                      variant: OctoStateLabelVariant.draft,
+                      emphasis: OctoStateLabelEmphasis.low,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      MatrixScenario(
         'spinners',
         // Park each spinner via motion-reduce so the snapshot stays
         // deterministic under freezeAnimations.

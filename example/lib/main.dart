@@ -589,6 +589,68 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
                   ),
                 ),
                 _Section(
+                  title: 'State labels — PR / issue lifecycle pills',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          OctoStateLabel(
+                            label: 'Open',
+                            variant: OctoStateLabelVariant.open,
+                          ),
+                          OctoStateLabel(
+                            label: 'Merged',
+                            variant: OctoStateLabelVariant.merged,
+                          ),
+                          OctoStateLabel(
+                            label: 'Closed',
+                            variant: OctoStateLabelVariant.closed,
+                          ),
+                          OctoStateLabel(
+                            label: 'Draft',
+                            variant: OctoStateLabelVariant.draft,
+                          ),
+                          OctoStateLabel(
+                            label: 'Stale',
+                            variant: OctoStateLabelVariant.attention,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: theme.spacing.gap.sm),
+                      const Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          OctoStateLabel(
+                            label: 'Open',
+                            variant: OctoStateLabelVariant.open,
+                            emphasis: OctoStateLabelEmphasis.low,
+                          ),
+                          OctoStateLabel(
+                            label: 'Merged',
+                            variant: OctoStateLabelVariant.merged,
+                            emphasis: OctoStateLabelEmphasis.low,
+                          ),
+                          OctoStateLabel(
+                            label: 'Closed',
+                            variant: OctoStateLabelVariant.closed,
+                            emphasis: OctoStateLabelEmphasis.low,
+                          ),
+                          OctoStateLabel(
+                            label: 'Draft',
+                            variant: OctoStateLabelVariant.draft,
+                            emphasis: OctoStateLabelEmphasis.low,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                _Section(
                   title: 'Spinners — small / medium / large',
                   child: Row(
                     children: [

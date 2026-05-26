@@ -6,6 +6,18 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- **`OctoStateLabel`** + `OctoStateLabelVariant` +
+  `OctoStateLabelEmphasis` — Primer-style PR / issue lifecycle pill.
+  Five variants (`open`, `closed`, `merged`, `draft`, `attention`) with
+  variant-implied default icons (`git_pull_request_16` /
+  `issue_closed_16` / `git_merge_16` / `git_pull_request_draft_16` /
+  `git_pull_request_16`); pass `icon` to override. Two emphasis tiers:
+  *high* = filled `.emphasis` background (header look) / *low* = subtle
+  `.subtle` background (dense list look). `merged` reuses the accent
+  palette until a `done` (purple) family lands. `ExcludeSemantics`
+  inside silences the inner icon + text, so screen readers read the
+  `Semantics(label:)` once — pass `semanticLabel` to override the
+  visible text.
 - **`OctoSpinner`** + `OctoSpinnerSize` — circular indeterminate loading
   indicator. A 270° arc rotates continuously over a configurable
   `duration` (default 900 ms). Three size presets (16 / 24 / 40 px);
