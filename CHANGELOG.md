@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- `OctoFocusRing.overlay` — clip-proof named constructor that renders the
+  ring through `OverlayPortal` in the root `Overlay`. Survives ancestor
+  clips (`ClipRect`, `ListView` items, dialog containers); same visibility
+  rules as the inline variant (focus + `FocusHighlightMode.traditional`).
+  Requires an enclosing `Overlay` (provided by `MaterialApp` /
+  `WidgetsApp`). See ADR-0006.
+
+### Documentation
+
+- All public members under `lib/src/` now carry `///` doc comments; lint
+  `public_member_api_docs` is enabled at warning level and reports zero
+  issues.
+
 ## [0.1.0-dev.0] — 2026-05-26
 
 Foundation release. API is unstable until `0.1.0`.
