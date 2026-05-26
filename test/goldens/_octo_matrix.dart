@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:golden_matrix/golden_matrix.dart';
 import 'package:octo_ui/octo_ui.dart';
 
@@ -18,6 +18,20 @@ Widget wrapInOctoTheme(Widget app, MatrixCombination combination) {
   final octo = combination.theme.data! as OctoThemeData;
   return OctoTheme(data: octo, child: app);
 }
+
+/// Wraps a [componentMatrixGolden] scenario in an [OctoTheme].
+///
+/// `componentMatrixGolden` builds the `MaterialApp` internally and doesn't
+/// expose a `wrapApp` hook, so we read [OctoThemeData] out of the
+/// inherited Material theme (it lives there as a `ThemeExtension`, see
+/// [OctoThemeData.toMaterialTheme]) and install [OctoTheme] above the
+/// scenario content.
+Widget octoComponentWrap(Widget child) => Builder(
+      builder: (context) {
+        final octo = Theme.of(context).extension<OctoThemeData>()!;
+        return OctoTheme(data: octo, child: child);
+      },
+    );
 
 /// Wraps a focused-state scenario so the focus ring actually paints.
 ///

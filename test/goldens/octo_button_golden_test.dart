@@ -5,13 +5,13 @@ import 'package:octo_ui/octo_ui.dart';
 import '_octo_matrix.dart';
 
 void main() {
-  matrixGolden(
+  componentMatrixGolden(
     'octo_button',
     scenarios: <MatrixScenario>[
       MatrixScenario(
         'variants',
-        builder: () => _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
@@ -26,8 +26,8 @@ void main() {
       ),
       MatrixScenario(
         'sizes',
-        builder: () => _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 12,
             runSpacing: 12,
@@ -41,8 +41,8 @@ void main() {
       ),
       MatrixScenario(
         'hovered',
-        builder: () => _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
@@ -69,8 +69,8 @@ void main() {
       ),
       MatrixScenario(
         'pressed',
-        builder: () => _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
@@ -98,29 +98,16 @@ void main() {
       MatrixScenario(
         'focused',
         builder: () => GoldenFocusScope(
-          child: _Sampler(
-            child: OctoButton.label('Focused', onPressed: _noop, autofocus: true),
+          child: octoComponentWrap(
+            OctoButton.label('Focused', onPressed: _noop, autofocus: true),
           ),
         ),
       ),
     ],
     axes: MatrixAxes(themes: octoThemes),
-    wrapApp: wrapInOctoTheme,
     reportFormats: octoReportFormats,
     tolerance: octoGoldenTolerance,
   );
 }
 
 void _noop() {}
-
-class _Sampler extends StatelessWidget {
-  final Widget child;
-
-  const _Sampler({required this.child});
-
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Align(alignment: Alignment.topLeft, child: child),
-      );
-}

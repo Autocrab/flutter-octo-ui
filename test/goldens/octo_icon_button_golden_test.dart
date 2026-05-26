@@ -7,13 +7,13 @@ import '_octo_matrix.dart';
 const _star = IconData(0xe838, fontFamily: 'MaterialIcons');
 
 void main() {
-  matrixGolden(
+  componentMatrixGolden(
     'octo_icon_button',
     scenarios: <MatrixScenario>[
       MatrixScenario(
         'variants',
-        builder: () => const _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          const Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
@@ -37,8 +37,8 @@ void main() {
       ),
       MatrixScenario(
         'sizes',
-        builder: () => const _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          const Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 12,
             runSpacing: 12,
@@ -62,8 +62,8 @@ void main() {
       ),
       MatrixScenario(
         'hovered',
-        builder: () => const _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          const Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
@@ -86,8 +86,8 @@ void main() {
       ),
       MatrixScenario(
         'pressed',
-        builder: () => const _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          const Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
@@ -110,9 +110,9 @@ void main() {
       ),
       MatrixScenario(
         'focused',
-        builder: () => const GoldenFocusScope(
-          child: _Sampler(
-            child: OctoIconButton(
+        builder: () => GoldenFocusScope(
+          child: octoComponentWrap(
+            const OctoIconButton(
               icon: _star,
               onPressed: _noop,
               semanticLabel: 'Star',
@@ -123,22 +123,9 @@ void main() {
       ),
     ],
     axes: MatrixAxes(themes: octoThemes),
-    wrapApp: wrapInOctoTheme,
     reportFormats: octoReportFormats,
     tolerance: octoGoldenTolerance,
   );
 }
 
 void _noop() {}
-
-class _Sampler extends StatelessWidget {
-  final Widget child;
-
-  const _Sampler({required this.child});
-
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Align(alignment: Alignment.topLeft, child: child),
-      );
-}

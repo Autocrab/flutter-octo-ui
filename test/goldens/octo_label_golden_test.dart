@@ -5,13 +5,13 @@ import 'package:octo_ui/octo_ui.dart';
 import '_octo_matrix.dart';
 
 void main() {
-  matrixGolden(
+  componentMatrixGolden(
     'octo_label',
     scenarios: <MatrixScenario>[
       MatrixScenario(
         'all_variants',
-        builder: () => const _Sampler(
-          child: Wrap(
+        builder: () => octoComponentWrap(
+          const Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
@@ -26,20 +26,7 @@ void main() {
       ),
     ],
     axes: MatrixAxes(themes: octoThemes),
-    wrapApp: wrapInOctoTheme,
     reportFormats: octoReportFormats,
     tolerance: octoGoldenTolerance,
   );
-}
-
-class _Sampler extends StatelessWidget {
-  final Widget child;
-
-  const _Sampler({required this.child});
-
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Align(alignment: Alignment.topLeft, child: child),
-      );
 }
