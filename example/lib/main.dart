@@ -12,19 +12,32 @@ class KitchenSinkApp extends StatefulWidget {
 
 class _KitchenSinkAppState extends State<KitchenSinkApp> {
   bool _dark = false;
+  bool _highContrast = false;
 
-  void _toggle() => setState(() => _dark = !_dark);
+  void _toggleDark() => setState(() => _dark = !_dark);
+
+  void _toggleHighContrast() => setState(() => _highContrast = !_highContrast);
 
   @override
   Widget build(BuildContext context) {
-    final octo = _dark ? OctoThemeData.dark() : OctoThemeData.light();
+    final variant = _highContrast
+        ? OctoColorSchemeVariant.highContrast
+        : OctoColorSchemeVariant.standard;
+    final octo = _dark
+        ? OctoThemeData.dark(variant: variant)
+        : OctoThemeData.light(variant: variant);
     return OctoTheme(
       data: octo,
       child: MaterialApp(
         title: 'octo_ui kitchen sink',
         debugShowCheckedModeBanner: false,
         theme: octo.toMaterialTheme(),
-        home: KitchenSinkPage(isDark: _dark, onToggleTheme: _toggle),
+        home: KitchenSinkPage(
+          isDark: _dark,
+          isHighContrast: _highContrast,
+          onToggleTheme: _toggleDark,
+          onToggleHighContrast: _toggleHighContrast,
+        ),
       ),
     );
   }
@@ -32,10 +45,17 @@ class _KitchenSinkAppState extends State<KitchenSinkApp> {
 
 class KitchenSinkPage extends StatefulWidget {
   final bool isDark;
+  final bool isHighContrast;
   final VoidCallback onToggleTheme;
+  final VoidCallback onToggleHighContrast;
 
-  const KitchenSinkPage(
-      {super.key, required this.isDark, required this.onToggleTheme});
+  const KitchenSinkPage({
+    super.key,
+    required this.isDark,
+    required this.isHighContrast,
+    required this.onToggleTheme,
+    required this.onToggleHighContrast,
+  });
 
   @override
   State<KitchenSinkPage> createState() => _KitchenSinkPageState();
@@ -64,6 +84,17 @@ class _KitchenSinkPageState extends State<KitchenSinkPage> {
             Border(bottom: BorderSide(color: theme.colors.border.defaultColor)),
         title: const OctoText('octo_ui kitchen sink', kind: OctoTextKind.title),
         actions: [
+          OctoIconButton(
+            icon: widget.isHighContrast
+                ? Icons.contrast
+                : Icons.contrast_outlined,
+            onPressed: widget.onToggleHighContrast,
+            variant: OctoButtonVariant.invisible,
+            semanticLabel: widget.isHighContrast
+                ? 'Switch to standard contrast'
+                : 'Switch to high contrast',
+          ),
+          SizedBox(width: theme.spacing.gap.sm),
           OctoIconButton(
             icon: widget.isDark
                 ? Icons.light_mode_outlined
