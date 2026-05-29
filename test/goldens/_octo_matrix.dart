@@ -8,8 +8,30 @@ import 'package:octo_ui/octo_ui.dart';
 /// the OctoThemeData itself so [wrapInOctoTheme] can install [OctoTheme]
 /// above the auto-built `MaterialApp`.
 final List<MatrixTheme> octoThemes = <MatrixTheme>[
-  MatrixTheme.custom('light', OctoThemeData.light().toMaterialTheme(), data: OctoThemeData.light()),
-  MatrixTheme.custom('dark', OctoThemeData.dark().toMaterialTheme(), data: OctoThemeData.dark()),
+  MatrixTheme.custom(
+    'light',
+    OctoThemeData.light().toMaterialTheme(),
+    data: OctoThemeData.light(),
+  ),
+  MatrixTheme.custom(
+    'dark',
+    OctoThemeData.dark().toMaterialTheme(),
+    data: OctoThemeData.dark(),
+  ),
+  // High-contrast variants — same palette family but with the
+  // WCAG-AA-bumped fg / border tokens. Catches regressions where a
+  // component reads from the wrong slot (e.g. uses fg.muted on
+  // canvas.subtle instead of canvas.default).
+  MatrixTheme.custom(
+    'light-hc',
+    OctoThemeData.light(variant: OctoColorSchemeVariant.highContrast).toMaterialTheme(),
+    data: OctoThemeData.light(variant: OctoColorSchemeVariant.highContrast),
+  ),
+  MatrixTheme.custom(
+    'dark-hc',
+    OctoThemeData.dark(variant: OctoColorSchemeVariant.highContrast).toMaterialTheme(),
+    data: OctoThemeData.dark(variant: OctoColorSchemeVariant.highContrast),
+  ),
 ];
 
 /// Wraps the auto-built [MaterialApp] in an [OctoTheme] pulled from
